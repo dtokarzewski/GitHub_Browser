@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "pl.dtokarzewski.github.core.designsystem"
+    namespace = "pl.dtokarzewski.github.feature.search"
 
     buildFeatures {
         buildConfig = true
@@ -32,11 +32,12 @@ android {
 }
 
 dependencies {
+    implementation(project(":core-ui"))
+    implementation(project(":core-designsystem"))
     implementation(libs.androidx.core.ktx)
-    implementation(libs.accompanist.systemuicontroller)
-    implementation(platform(libs.androidx.compose.bom))
-    api(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.navigation.compose)
     debugImplementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.ui.util)

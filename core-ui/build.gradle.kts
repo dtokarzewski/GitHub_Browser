@@ -4,7 +4,8 @@ plugins {
 }
 
 android {
-    namespace = "pl.dtokarzewski.github.core.designsystem"
+    namespace = "pl.dtokarzewski.github.core.ui"
+    compileSdk = 33
 
     buildFeatures {
         buildConfig = true
@@ -32,12 +33,12 @@ android {
 }
 
 dependencies {
+    implementation(project(":core-designsystem"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.accompanist.systemuicontroller)
     implementation(platform(libs.androidx.compose.bom))
-    api(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.runtime)
     debugImplementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.ui.util)
+    implementation(libs.androidx.compose.runtime)
 }
