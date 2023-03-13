@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import pl.dtokarzewski.github.feature.repo.navigation.navigateToRepo
+import pl.dtokarzewski.github.feature.repo.navigation.repoGraph
 import pl.dtokarzewski.github.search.navigation.SEARCH_ROUTE
 import pl.dtokarzewski.github.search.navigation.searchGraph
 
@@ -18,6 +20,11 @@ fun GitHubNavHost(
         startDestination = startDestination,
         modifier = modifier
     ) {
-        searchGraph()
+        searchGraph(
+            navigateToRepo = { repoName -> navController.navigateToRepo(repoName) }
+        )
+        repoGraph(
+            navController = navController
+        )
     }
 }

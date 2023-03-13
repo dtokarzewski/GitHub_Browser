@@ -1,8 +1,8 @@
 plugins {
     id("com.android.application")
-    id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -18,29 +18,30 @@ android {
 
     buildTypes {
         release {
+            @Suppress("UnstableApiUsage")
             isMinifyEnabled = false
+            @Suppress("UnstableApiUsage")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
     }
+    @Suppress("UnstableApiUsage")
     buildFeatures {
         compose = true
     }
+    @Suppress("UnstableApiUsage")
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
-}
-
-kapt {
-    correctErrorTypes = true
 }
 
 dependencies {
     implementation(project(":core-designsystem"))
     implementation(project(":core-ui"))
     implementation(project(":feature-search"))
+    implementation(project(":feature-repo"))
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
@@ -55,7 +56,6 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.profileinstaller)
     implementation(libs.androidx.window.manager)
-    implementation(libs.coil.kt)
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.timber)

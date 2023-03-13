@@ -1,4 +1,4 @@
 package pl.dtokarzewski.github.search.ui
 
-class SearchViewState {
+class SearchUiState {
 }

@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "pl.dtokarzewski.github.feature.search"
+    namespace = "pl.dtokarzewski.github.feature.repo"
 
     @Suppress("UnstableApiUsage")
     buildFeatures {
@@ -14,7 +14,7 @@ android {
         compose = true
     }
 
-    @Suppress("UnstableApiUsage")
+    @Suppress("UnstableApiUsage", "UnstableApiUsage")
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }

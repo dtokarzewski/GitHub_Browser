@@ -1,19 +1,17 @@
 package pl.dtokarzewski.github.search.navigation
 
-import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import pl.dtokarzewski.github.search.ui.SearchRoute
 
-const val SEARCH_ROUTE = "search_route"
+const val SEARCH_ROUTE = "search"
 
-fun NavController.navigateToSearch(navOptions: NavOptions? = null) {
-    this.navigate(SEARCH_ROUTE, navOptions)
-}
-
-fun NavGraphBuilder.searchGraph() {
+fun NavGraphBuilder.searchGraph(
+    navigateToRepo: (String) -> Unit
+) {
     composable(route = SEARCH_ROUTE) {
-        SearchRoute()
+        SearchRoute(
+            navigateToRepo = navigateToRepo
+        )
     }
 }
