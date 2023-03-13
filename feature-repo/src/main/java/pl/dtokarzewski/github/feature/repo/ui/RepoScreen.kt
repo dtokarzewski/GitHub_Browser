@@ -49,7 +49,7 @@ fun RepoScreen(
                         )
                     }
                 },
-                colors = TopAppBarDefaults.mediumTopAppBarColors()
+                colors = TopAppBarDefaults.smallTopAppBarColors()
             )
         }
     ) {

@@ -1,12 +1,10 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.kapt")
-    id("com.google.dagger.hilt.android")
 }
 
 android {
-    namespace = "pl.dtokarzewski.github.feature.repo"
+    namespace = "pl.dtokarzewski.github.core.common"
 
     @Suppress("UnstableApiUsage")
     buildFeatures {
@@ -14,7 +12,7 @@ android {
         compose = true
     }
 
-    @Suppress("UnstableApiUsage", "UnstableApiUsage")
+    @Suppress("UnstableApiUsage")
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
@@ -27,7 +25,7 @@ android {
     buildTypes {
         release {
             @Suppress("UnstableApiUsage")
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             @Suppress("UnstableApiUsage")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -38,17 +36,11 @@ android {
 }
 
 dependencies {
-    implementation(project(":core-common"))
-    implementation(project(":core-ui"))
-    implementation(project(":core-designsystem"))
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.runtime)
-    implementation(libs.androidx.hilt.navigation.compose)
-    implementation(libs.androidx.navigation.compose)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.ui.util)
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    implementation(libs.androidx.lifecycle.viewModel.compose)
+    implementation(libs.kotlinx.coroutines.android)
     implementation(libs.timber)
 }

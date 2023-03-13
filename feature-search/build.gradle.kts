@@ -38,6 +38,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core-common"))
     implementation(project(":core-ui"))
     implementation(project(":core-designsystem"))
     implementation(libs.androidx.core.ktx)
@@ -49,5 +50,6 @@ dependencies {
     implementation(libs.androidx.compose.ui.util)
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+    implementation(libs.kotlinx.coroutines.android)
     implementation(libs.timber)
 }

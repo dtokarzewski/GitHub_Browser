@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import pl.dtokarzewski.github.core.common.util.logViewState
 import pl.dtokarzewski.github.feature.repo.navigation.RepoArgs
 import javax.inject.Inject
 
@@ -17,4 +18,8 @@ class RepoViewModel @Inject constructor(
     private val repoName: String = repoArgs.repoName
 
     val uiState: StateFlow<RepoUiState> = MutableStateFlow(RepoUiState.Success(repoName))
+
+    init {
+        logViewState(uiState)
+    }
 }

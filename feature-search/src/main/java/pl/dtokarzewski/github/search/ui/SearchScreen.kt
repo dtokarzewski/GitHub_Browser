@@ -19,18 +19,24 @@ fun SearchRoute(
     viewModel: SearchViewModel = hiltViewModel(),
     navigateToRepo: (String) -> Unit
 ) {
+    val uiState by viewModel.uiState.collectAsState()
+
     SearchScreen(
-        navigateToRepo = navigateToRepo
+        uiState = uiState,
+        navigateToRepo = navigateToRepo,
+        onRepoNameChanged = viewModel::onRepoNameChanged
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
-    navigateToRepo: (String) -> Unit
+    uiState: SearchUiState,
+    navigateToRepo: (String) -> Unit,
+    onRepoNameChanged: (String) -> Unit
 ) {
 
-    var repoName by remember { mutableStateOf(TextFieldValue(""))}
+    var repoName by remember { mutableStateOf(TextFieldValue(uiState.repoName))}
 
     Column(
         modifier = Modifier
@@ -46,6 +52,7 @@ fun SearchScreen(
             label = { Text(text = stringResource(id = R.string.repository_name)) },
             onValueChange = {
                 repoName = it
+                onRepoNameChanged(it.text)
             }
         )
         Button(
@@ -78,7 +85,9 @@ fun SearchScreen(
 fun SearchScreenPreview() {
     GitHubTheme {
         SearchScreen(
-            navigateToRepo = {}
+            uiState = SearchUiState.Success(repoName = "dtokarzewski/GitHub"),
+            navigateToRepo = {},
+            onRepoNameChanged = {}
         )
     }
 }

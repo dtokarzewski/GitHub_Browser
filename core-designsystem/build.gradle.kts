@@ -6,11 +6,13 @@ plugins {
 android {
     namespace = "pl.dtokarzewski.github.core.designsystem"
 
+    @Suppress("UnstableApiUsage")
     buildFeatures {
         buildConfig = true
         compose = true
     }
 
+    @Suppress("UnstableApiUsage")
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
@@ -22,7 +24,9 @@ android {
 
     buildTypes {
         release {
+            @Suppress("UnstableApiUsage")
             isMinifyEnabled = true
+            @Suppress("UnstableApiUsage")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
