@@ -1,10 +1,7 @@
 package pl.dtokarzewski.github
 
-import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.performTextInput
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
 import org.junit.Rule
@@ -38,7 +35,7 @@ class NavigationTest {
     @Test
     fun firstScreen_isSearch() {
         composeTestRule.apply {
-            onNodeWithText(repositoryName).assertIsDisplayed()
+            onNodeWithText(go).assertIsDisplayed()
         }
     }
 
@@ -48,6 +45,16 @@ class NavigationTest {
             onNodeWithText(repositoryName).performTextInput(repoName)
             onNodeWithText(go).performClick()
             onNodeWithText(repositoryDetails).assertIsDisplayed()
+        }
+    }
+
+    @Test
+    fun repoScreen_navigateUp_searchScreenShowed() {
+        composeTestRule.apply {
+            onNodeWithText(repositoryName).performTextInput(repoName)
+            onNodeWithText(go).performClick()
+            onNodeWithContentDescription(navigateUp).performClick()
+            onNodeWithText(go).assertIsDisplayed()
         }
     }
 }

@@ -6,18 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "pl.dtokarzewski.github.core.common"
-
-    @Suppress("UnstableApiUsage")
-    buildFeatures {
-        buildConfig = true
-        compose = true
-    }
-
-    @Suppress("UnstableApiUsage")
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
-    }
+    namespace = "pl.dtokarzewski.github.data.network"
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -38,11 +27,10 @@ android {
 }
 
 dependencies {
+
+    implementation(project(":core-common"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.runtime)
-    implementation(libs.androidx.lifecycle.viewModel.compose)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
@@ -51,5 +39,6 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
+
     implementation(libs.timber)
 }

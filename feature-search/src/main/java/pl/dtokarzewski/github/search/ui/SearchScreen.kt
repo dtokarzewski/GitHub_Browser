@@ -36,7 +36,7 @@ fun SearchScreen(
     onRepoNameChanged: (String) -> Unit
 ) {
 
-    var repoName by remember { mutableStateOf(TextFieldValue(uiState.repoName))}
+    var repoName by remember { mutableStateOf(TextFieldValue(uiState.repoName)) }
 
     Column(
         modifier = Modifier
@@ -50,6 +50,7 @@ fun SearchScreen(
                 .fillMaxWidth(),
             value = repoName,
             label = { Text(text = stringResource(id = R.string.repository_name)) },
+            placeholder = { Text(text = stringResource(id = R.string.repository_name_hint)) },
             onValueChange = {
                 repoName = it
                 onRepoNameChanged(it.text)
@@ -63,7 +64,7 @@ fun SearchScreen(
             enabled = repoName.text.isNotBlank(),
             onClick = { navigateToRepo(repoName.text) },
 
-        ) {
+            ) {
             Text(text = stringResource(id = R.string.go))
         }
         Text(

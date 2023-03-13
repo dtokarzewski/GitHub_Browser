@@ -8,7 +8,7 @@ androidDesugarJdkLibs = "1.2.2"
 androidGradlePlugin = "7.4.2"
 androidxActivity = "1.6.1"
 androidxAppCompat = "1.4.2"
-androidxComposeCompiler = "1.4.0"
+androidxComposeCompiler = "1.4.3"
 androidxComposeBom = "2023.01.00"
 androidxDynamicAnimation = "1.0.0"
 androidxCore = "1.9.0"
@@ -40,7 +40,7 @@ kotlin = "1.8.0"
 kotlinxCoroutines = "1.6.4"
 kotlinxDatetime = "0.4.0"
 kotlinxSerializationJson = "1.4.1"
-ksp = "1.7.20-1.0.8"
+ksp = "1.8.10-1.0.9"
 ktlint = "0.46.1"
 lint = "30.2.1"
 material3 = "1.6.1"
@@ -132,9 +132,11 @@ protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-
 
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-kotlin-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofitKotlinxSerializationJson" }
+
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 
@@ -146,6 +148,7 @@ gradleDependencyUpdate = { id = "com.github.ben-manes.versions", version.ref = "
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
