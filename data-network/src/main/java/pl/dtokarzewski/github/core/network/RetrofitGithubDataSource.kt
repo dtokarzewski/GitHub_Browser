@@ -4,7 +4,7 @@ import pl.dtokarzewski.github.core.network.model.NetworkRepo
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class RetrofitGithubNetwork @Inject constructor(
+class RetrofitGithubDataSource @Inject constructor(
     retrofit: Retrofit
 ) : GithubNetworkDataSource {
 
