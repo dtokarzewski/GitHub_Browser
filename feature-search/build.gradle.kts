@@ -43,6 +43,7 @@ dependencies {
     implementation(project(":core-ui"))
     implementation(project(":core-designsystem"))
     implementation(project(":domain"))
+    implementation(project(":data-model"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.hilt.navigation.compose)

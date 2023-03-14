@@ -28,7 +28,7 @@ interface RepoDao {
     suspend fun getRepo(ownerLogin: String, name: String): DbRepo
 
     @Query("DELETE FROM repo WHERE owner_login = :ownerLogin AND name = :name")
-    suspend fun deleteRepo(ownerLogin: String, name: String)
+    suspend fun deleteRepo(ownerLogin: String, name: String): Int
 
     @Query(
         """
@@ -37,4 +37,7 @@ interface RepoDao {
         ORDER BY stars DESC"""
     )
     fun getReposForOwner(owner: String): Flow<List<DbRepo>>
+
+    @Query("SELECT * FROM repo")
+    fun getAllRepos(): Flow<List<DbRepo>>
 }

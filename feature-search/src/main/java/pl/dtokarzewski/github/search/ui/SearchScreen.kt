@@ -76,7 +76,14 @@ fun SearchScreen(
         )
         LazyColumn(
             modifier = Modifier.padding(top = 8.dp)
-        ) {
+        ) { uiState.allRepos.forEach {
+            item {
+                Text(
+                    modifier = Modifier.padding(vertical = 8.dp),
+                    text = "${it.owner.login}/${it.name}"
+                )
+            }
+        }
 
         }
     }
@@ -87,7 +94,7 @@ fun SearchScreen(
 fun SearchScreenPreview() {
     GitHubTheme {
         SearchScreen(
-            uiState = SearchUiState.Success(repoName = "dtokarzewski/GitHub"),
+            uiState = SearchUiState.Success(repoName = "dtokarzewski/GitHub", emptyList()),
             onRepoNameChanged = {},
             onSearchClicked = {}
         )
