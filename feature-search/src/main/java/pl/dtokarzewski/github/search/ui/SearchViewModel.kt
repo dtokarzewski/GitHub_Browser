@@ -63,9 +63,19 @@ class SearchViewModel @Inject constructor(
 
     fun onSearchClicked() {
         queryState.value = QueryState.Loading
+        val owner = query.value.split("/")[0]
+        val name = query.value.split("/")[1]
+        openRepo(owner, name)
+    }
+
+    fun onRecentRepoClicked(repo: Repo) {
+        query.value = "${repo.owner.login}/${repo.name}"
+        queryValid.value = validateRepoNameUseCase(query.value)
+        openRepo(repo.owner.login, repo.name)
+    }
+
+    private fun openRepo(owner: String, name: String) {
         viewModelScope.launch {
-            val owner = query.value.split("/")[0]
-            val name = query.value.split("/")[1]
             getRepoUseCase(owner, name)
                 .onSuccess {
                     queryState.value = QueryState.Success(it)

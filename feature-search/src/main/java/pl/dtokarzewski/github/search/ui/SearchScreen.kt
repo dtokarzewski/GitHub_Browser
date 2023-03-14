@@ -1,5 +1,6 @@
 package pl.dtokarzewski.github.search.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
@@ -14,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import pl.dtokarzewski.github.core.designsystem.GitHubTheme
+import pl.dtokarzewski.github.core.model.Repo
 import pl.dtokarzewski.github.core.ui.ErrorSnackbar
 import pl.dtokarzewski.github.core.ui.LocalSnackbarHostState
 import pl.dtokarzewski.github.feature.search.R
@@ -44,6 +46,7 @@ fun SearchRoute(
         uiState = uiState,
         onRepoNameChanged = viewModel::onQueryChanged,
         onSearchClicked = viewModel::onSearchClicked,
+        onRepoClicked = viewModel::onRecentRepoClicked,
         onErrorShown = viewModel::onErrorShow,
         snackbarHostState = snackbarHostState
 
@@ -56,6 +59,7 @@ fun SearchScreen(
     uiState: SearchUiState,
     onRepoNameChanged: (String) -> Unit,
     onSearchClicked: () -> Unit,
+    onRepoClicked: (Repo) -> Unit,
     onErrorShown: () -> Unit,
     snackbarHostState: SnackbarHostState
 ) {
@@ -103,7 +107,9 @@ fun SearchScreen(
             uiState.allRepos.forEach {
                 item {
                     Text(
-                        modifier = Modifier.padding(vertical = 8.dp),
+                        modifier = Modifier
+                            .padding(vertical = 12.dp)
+                            .clickable { onRepoClicked(it) },
                         text = "${it.owner.login}/${it.name}"
                     )
                 }
@@ -152,6 +158,7 @@ fun SearchScreenPreview() {
             uiState = SearchUiState.Idle(query = "dtokarzewski/GitHub", true, emptyList()),
             onRepoNameChanged = {},
             onSearchClicked = {},
+            onRepoClicked = {},
             onErrorShown = {},
             snackbarHostState = SnackbarHostState()
         )
