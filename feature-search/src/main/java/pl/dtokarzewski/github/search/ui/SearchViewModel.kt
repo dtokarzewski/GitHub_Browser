@@ -9,41 +9,47 @@ import pl.dtokarzewski.github.core.common.util.logViewState
 import pl.dtokarzewski.github.core.model.Repo
 import pl.dtokarzewski.github.domain.GetAllReposUseCase
 import pl.dtokarzewski.github.domain.GetRepoUseCase
+import pl.dtokarzewski.github.domain.ValidateRepoNameUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val getRepoUseCase: GetRepoUseCase,
+    private val validateRepoNameUseCase: ValidateRepoNameUseCase,
     getAllReposUseCase: GetAllReposUseCase
 ) : ViewModel() {
 
     private val query = MutableStateFlow("dtokarzewski/GitHub_Browser")
-    private val loading = MutableStateFlow(false)
-    private val selectedRepo = MutableStateFlow<Repo?>(null)
-    private val error = MutableStateFlow<Throwable?>(null)
+    private val queryValid = MutableStateFlow(true)
+    private val queryState = MutableStateFlow<QueryState>(QueryState.Idle)
 
     val uiState: StateFlow<SearchUiState> = combine(
         query,
+        queryValid,
+        queryState,
         getAllReposUseCase(),
-        selectedRepo,
-        loading,
-        error
-    ) { query, allRepos, repo, loading, error ->
-        if (error != null) {
-            SearchUiState.Error(error, query, allRepos)
-        }
-        if (repo != null) {
-            SearchUiState.NavigateToRepo(repo.owner.login, repo.name, query, allRepos)
-        }
-        if (loading) {
-            SearchUiState.Loading(query, allRepos)
-        } else {
-            SearchUiState.Idle(query, allRepos)
+    ) { query, queryValid, queryState, allRepos ->
+        when (queryState) {
+            is QueryState.Error -> SearchUiState.Error(
+                error = queryState.error,
+                query = query,
+                isQueryValid = queryValid,
+                allRepos = allRepos
+            )
+            is QueryState.Success -> SearchUiState.NavigateToRepo(
+                owner = queryState.repo.owner.login,
+                name = queryState.repo.name,
+                query = query,
+                isQueryValid = queryValid,
+                allRepos = allRepos
+            )
+            is QueryState.Loading -> SearchUiState.Loading(query, queryValid, allRepos)
+            is QueryState.Idle -> SearchUiState.Idle(query, queryValid, allRepos)
         }
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = SearchUiState.Loading("dtokarzewski/GitHub_Browser", emptyList())
+        initialValue = SearchUiState.Loading("dtokarzewski/GitHub_Browser", true, emptyList())
     )
 
     init {
@@ -52,37 +58,36 @@ class SearchViewModel @Inject constructor(
 
     fun onQueryChanged(newQuery: String) {
         query.value = newQuery
+        queryValid.value = validateRepoNameUseCase(newQuery)
     }
 
     fun onSearchClicked() {
-        loading.value = true
+        queryState.value = QueryState.Loading
         viewModelScope.launch {
             val owner = query.value.split("/")[0]
             val name = query.value.split("/")[1]
             getRepoUseCase(owner, name)
                 .onSuccess {
-                    selectedRepo.value = it
-                    loading.value = false
+                    queryState.value = QueryState.Success(it)
                 }
                 .onFailure {
-                    error.value = it
-                    loading.value = false
+                    queryState.value = QueryState.Error(it)
                 }
         }
     }
 
     fun onNavigated() {
-        selectedRepo.value = null
+        queryState.value = QueryState.Idle
     }
 
     fun onErrorShow() {
-        error.value = null
+        queryState.value = QueryState.Idle
     }
 
     internal sealed interface QueryState {
         object Idle : QueryState
         object Loading : QueryState
-        class Error(error: Throwable) : QueryState
-        class Success(repo: Repo) : QueryState
+        data class Error(val error: Throwable) : QueryState
+        data class Success(val repo: Repo) : QueryState
     }
 }

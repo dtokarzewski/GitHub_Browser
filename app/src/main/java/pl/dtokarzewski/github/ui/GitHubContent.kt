@@ -1,9 +1,8 @@
 package pl.dtokarzewski.github.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Surface
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
@@ -13,6 +12,7 @@ import pl.dtokarzewski.github.core.designsystem.GitHubTheme
 import pl.dtokarzewski.github.core.ui.LocalSnackbarHostState
 import pl.dtokarzewski.github.navigation.GitHubNavHost
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GitHubContent(
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() }
@@ -22,11 +22,12 @@ fun GitHubContent(
         LocalSnackbarHostState provides snackbarHostState
     ) {
         GitHubTheme {
-            Surface(
+            Scaffold(
                 modifier = Modifier.fillMaxSize(),
-                color = MaterialTheme.colorScheme.background
+                snackbarHost = { SnackbarHost(snackbarHostState) }
             ) {
                 GitHubNavHost(
+                    modifier = Modifier.padding(it),
                     navController = navController
                 )
             }

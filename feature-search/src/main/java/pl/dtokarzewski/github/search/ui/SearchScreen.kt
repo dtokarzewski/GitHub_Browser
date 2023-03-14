@@ -85,7 +85,7 @@ fun SearchScreen(
                 .width(200.dp)
                 .align(CenterHorizontally)
                 .padding(vertical = 8.dp),
-            enabled = repoName.text.isNotBlank(),
+            enabled = uiState.isQueryValid,
             onClick = onSearchClicked,
 
             ) {
@@ -149,7 +149,7 @@ fun ProgressIndicator() {
 fun SearchScreenPreview() {
     GitHubTheme {
         SearchScreen(
-            uiState = SearchUiState.Idle(query = "dtokarzewski/GitHub", emptyList()),
+            uiState = SearchUiState.Idle(query = "dtokarzewski/GitHub", true, emptyList()),
             onRepoNameChanged = {},
             onSearchClicked = {},
             onErrorShown = {},

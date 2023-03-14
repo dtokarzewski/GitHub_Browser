@@ -10,7 +10,7 @@ class GetRepoUseCase @Inject constructor(
     private val repoRepository: RepoRepository,
     @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) {
-    // TODO map errors
+    // TODO Add propper error mapping
     suspend operator fun invoke(owner: String, name: String) = withContext(dispatcher) {
         repoRepository.getRepo(owner, name)
     }

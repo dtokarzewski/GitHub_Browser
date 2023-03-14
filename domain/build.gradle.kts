@@ -40,4 +40,8 @@ dependencies {
     implementation(libs.kotlinx.datetime)
     implementation(libs.retrofit.core)
     implementation(libs.timber)
+
+    testImplementation(libs.junit4)
+    testImplementation(kotlin("test"))
+    testImplementation(libs.kotlinx.coroutines.test)
 }
