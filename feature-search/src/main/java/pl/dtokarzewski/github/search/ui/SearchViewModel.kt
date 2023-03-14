@@ -5,29 +5,40 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import pl.dtokarzewski.github.core.common.util.logViewState
+import pl.dtokarzewski.github.core.model.Repo
 import pl.dtokarzewski.github.domain.GetAllReposUseCase
 import pl.dtokarzewski.github.domain.GetRepoUseCase
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val getRepoUseCase: GetRepoUseCase,
-    private val getAllReposUseCase: GetAllReposUseCase
+    getAllReposUseCase: GetAllReposUseCase
 ) : ViewModel() {
 
-    private val repoNameState = MutableStateFlow("dtokarzewski/GitHub_Browser")
+    private val query = MutableStateFlow("dtokarzewski/GitHub_Browser")
     private val loading = MutableStateFlow(false)
+    private val selectedRepo = MutableStateFlow<Repo?>(null)
+    private val error = MutableStateFlow<Throwable?>(null)
 
     val uiState: StateFlow<SearchUiState> = combine(
-        repoNameState,
+        query,
         getAllReposUseCase(),
-        loading
-    ) { repoName, allRepos, loading ->
+        selectedRepo,
+        loading,
+        error
+    ) { query, allRepos, repo, loading, error ->
+        if (error != null) {
+            SearchUiState.Error(error, query, allRepos)
+        }
+        if (repo != null) {
+            SearchUiState.NavigateToRepo(repo.owner.login, repo.name, query, allRepos)
+        }
         if (loading) {
-            SearchUiState.Loading(repoName, allRepos)
+            SearchUiState.Loading(query, allRepos)
         } else {
-            SearchUiState.Success(repoName, allRepos)
+            SearchUiState.Idle(query, allRepos)
         }
     }.stateIn(
         scope = viewModelScope,
@@ -35,16 +46,43 @@ class SearchViewModel @Inject constructor(
         initialValue = SearchUiState.Loading("dtokarzewski/GitHub_Browser", emptyList())
     )
 
-    fun onRepoNameChanged(repoName: String) {
-        repoNameState.value = repoName
+    init {
+        logViewState(uiState)
+    }
+
+    fun onQueryChanged(newQuery: String) {
+        query.value = newQuery
     }
 
     fun onSearchClicked() {
+        loading.value = true
         viewModelScope.launch {
-            val owner = repoNameState.value.split("/")[0]
-            val name = repoNameState.value.split("/")[1]
-            val repo = getRepoUseCase(owner, name)
-            Timber.d("Repo search result: $repo")
+            val owner = query.value.split("/")[0]
+            val name = query.value.split("/")[1]
+            getRepoUseCase(owner, name)
+                .onSuccess {
+                    selectedRepo.value = it
+                    loading.value = false
+                }
+                .onFailure {
+                    error.value = it
+                    loading.value = false
+                }
         }
+    }
+
+    fun onNavigated() {
+        selectedRepo.value = null
+    }
+
+    fun onErrorShow() {
+        error.value = null
+    }
+
+    internal sealed interface QueryState {
+        object Idle : QueryState
+        object Loading : QueryState
+        class Error(error: Throwable) : QueryState
+        class Success(repo: Repo) : QueryState
     }
 }

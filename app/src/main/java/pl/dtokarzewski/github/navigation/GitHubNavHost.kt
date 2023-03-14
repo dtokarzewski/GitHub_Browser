@@ -21,7 +21,7 @@ fun GitHubNavHost(
         modifier = modifier
     ) {
         searchGraph(
-            navigateToRepo = { repoName -> navController.navigateToRepo(repoName) }
+            navigateToRepo = { owner, repoName -> navController.navigateToRepo(owner, repoName) }
         )
         repoGraph(
             navController = navController

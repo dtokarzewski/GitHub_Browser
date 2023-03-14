@@ -4,27 +4,48 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import pl.dtokarzewski.github.core.designsystem.GitHubTheme
+import pl.dtokarzewski.github.core.ui.ErrorSnackbar
+import pl.dtokarzewski.github.core.ui.LocalSnackbarHostState
 import pl.dtokarzewski.github.feature.search.R
+import pl.dtokarzewski.githubbrowser.core.designsystem.Black40
 
 @Composable
 fun SearchRoute(
     viewModel: SearchViewModel = hiltViewModel(),
-    navigateToRepo: (String) -> Unit
+    navigateToRepo: (String, String) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val snackbarHostState = LocalSnackbarHostState.current
 
+    LaunchedEffect(uiState) {
+        when (uiState) {
+            is SearchUiState.NavigateToRepo -> {
+                navigateToRepo(
+                    (uiState as SearchUiState.NavigateToRepo).owner,
+                    (uiState as SearchUiState.NavigateToRepo).name
+                )
+                viewModel.onNavigated()
+            }
+            else -> { /* No-op */
+            }
+        }
+    }
     SearchScreen(
         uiState = uiState,
-        onRepoNameChanged = viewModel::onRepoNameChanged,
-        onSearchClicked = viewModel::onSearchClicked
+        onRepoNameChanged = viewModel::onQueryChanged,
+        onSearchClicked = viewModel::onSearchClicked,
+        onErrorShown = viewModel::onErrorShow,
+        snackbarHostState = snackbarHostState
 
     )
 }
@@ -34,10 +55,12 @@ fun SearchRoute(
 fun SearchScreen(
     uiState: SearchUiState,
     onRepoNameChanged: (String) -> Unit,
-    onSearchClicked: () -> Unit
+    onSearchClicked: () -> Unit,
+    onErrorShown: () -> Unit,
+    snackbarHostState: SnackbarHostState
 ) {
 
-    var repoName by remember { mutableStateOf(TextFieldValue(uiState.repoName)) }
+    var repoName by remember { mutableStateOf(TextFieldValue(uiState.query)) }
 
     Column(
         modifier = Modifier
@@ -76,15 +99,47 @@ fun SearchScreen(
         )
         LazyColumn(
             modifier = Modifier.padding(top = 8.dp)
-        ) { uiState.allRepos.forEach {
-            item {
-                Text(
-                    modifier = Modifier.padding(vertical = 8.dp),
-                    text = "${it.owner.login}/${it.name}"
-                )
+        ) {
+            uiState.allRepos.forEach {
+                item {
+                    Text(
+                        modifier = Modifier.padding(vertical = 8.dp),
+                        text = "${it.owner.login}/${it.name}"
+                    )
+                }
             }
         }
+    }
 
+    when (uiState) {
+        is SearchUiState.Loading -> {
+            ProgressIndicator()
+        }
+        is SearchUiState.Error -> {
+            ErrorSnackbar(
+                snackbarHostState = snackbarHostState,
+                error = uiState.error,
+                onErrorShown = onErrorShown
+            )
+        }
+        else -> { /* No-op */ }
+    }
+}
+
+@Composable
+fun ProgressIndicator() {
+    Surface(
+        modifier = Modifier
+            .fillMaxSize(),
+        color = Black40
+    ) {
+        Box {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .size(80.dp)
+                    .clipToBounds()
+                    .align(Alignment.Center)
+            )
         }
     }
 }
@@ -94,9 +149,11 @@ fun SearchScreen(
 fun SearchScreenPreview() {
     GitHubTheme {
         SearchScreen(
-            uiState = SearchUiState.Success(repoName = "dtokarzewski/GitHub", emptyList()),
+            uiState = SearchUiState.Idle(query = "dtokarzewski/GitHub", emptyList()),
             onRepoNameChanged = {},
-            onSearchClicked = {}
+            onSearchClicked = {},
+            onErrorShown = {},
+            snackbarHostState = SnackbarHostState()
         )
     }
 }

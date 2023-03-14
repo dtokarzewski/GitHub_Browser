@@ -15,6 +15,7 @@ class RepoViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val repoArgs = RepoArgs(savedStateHandle)
+    private val owner: String = repoArgs.owner
     private val repoName: String = repoArgs.repoName
 
     val uiState: StateFlow<RepoUiState> = MutableStateFlow(RepoUiState.Success(repoName))

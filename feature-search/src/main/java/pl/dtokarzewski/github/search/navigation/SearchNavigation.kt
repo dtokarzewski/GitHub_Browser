@@ -7,7 +7,7 @@ import pl.dtokarzewski.github.search.ui.SearchRoute
 const val SEARCH_ROUTE = "search"
 
 fun NavGraphBuilder.searchGraph(
-    navigateToRepo: (String) -> Unit
+    navigateToRepo: (String, String) -> Unit
 ) {
     composable(route = SEARCH_ROUTE) {
         SearchRoute(
