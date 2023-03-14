@@ -1,7 +1,9 @@
 package pl.dtokarzewski.github.core.network.model
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class NetworkRepo(
     val id: Int,
     @SerialName("name")
@@ -16,6 +18,7 @@ data class NetworkRepo(
     val stars: Int
 ) {
 
+    @Serializable
     data class Owner(
         @SerialName("login")
         val login: String,

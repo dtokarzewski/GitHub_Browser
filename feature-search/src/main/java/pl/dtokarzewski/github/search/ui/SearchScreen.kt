@@ -23,8 +23,9 @@ fun SearchRoute(
 
     SearchScreen(
         uiState = uiState,
-        navigateToRepo = navigateToRepo,
-        onRepoNameChanged = viewModel::onRepoNameChanged
+        onRepoNameChanged = viewModel::onRepoNameChanged,
+        onSearchClicked = viewModel::onSearchClicked
+
     )
 }
 
@@ -32,8 +33,8 @@ fun SearchRoute(
 @Composable
 fun SearchScreen(
     uiState: SearchUiState,
-    navigateToRepo: (String) -> Unit,
-    onRepoNameChanged: (String) -> Unit
+    onRepoNameChanged: (String) -> Unit,
+    onSearchClicked: () -> Unit
 ) {
 
     var repoName by remember { mutableStateOf(TextFieldValue(uiState.repoName)) }
@@ -62,10 +63,10 @@ fun SearchScreen(
                 .align(CenterHorizontally)
                 .padding(vertical = 8.dp),
             enabled = repoName.text.isNotBlank(),
-            onClick = { navigateToRepo(repoName.text) },
+            onClick = onSearchClicked,
 
             ) {
-            Text(text = stringResource(id = R.string.go))
+            Text(text = stringResource(id = R.string.search))
         }
         Text(
             modifier = Modifier
@@ -87,8 +88,8 @@ fun SearchScreenPreview() {
     GitHubTheme {
         SearchScreen(
             uiState = SearchUiState.Success(repoName = "dtokarzewski/GitHub"),
-            navigateToRepo = {},
-            onRepoNameChanged = {}
+            onRepoNameChanged = {},
+            onSearchClicked = {}
         )
     }
 }

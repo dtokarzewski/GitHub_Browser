@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "pl.dtokarzewski.github.data"
+    namespace = "pl.dtokarzewski.github.domain"
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -29,9 +29,8 @@ android {
 
 dependencies {
     implementation(project(":core-common"))
-    implementation(project(":data-database"))
+    implementation(project(":data"))
     implementation(project(":data-model"))
-    implementation(project(":data-network"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.kotlinx.coroutines.android)

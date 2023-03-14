@@ -19,7 +19,7 @@ class NavigationTest {
     private lateinit var repositoryName: String
     private lateinit var navigateUp: String
     private lateinit var repositoryDetails: String
-    private lateinit var go: String
+    private lateinit var search: String
     private var repoName: String = "dtokarzewski/github"
 
     @Before
@@ -28,14 +28,14 @@ class NavigationTest {
             repositoryName = getString(FeatureSearchR.string.repository_name)
             navigateUp = getString(CoreUiR.string.navigate_up)
             repositoryDetails = getString(FeatureRepoR.string.repo_details)
-            go = getString(FeatureSearchR.string.go)
+            search = getString(FeatureSearchR.string.search)
         }
     }
 
     @Test
     fun firstScreen_isSearch() {
         composeTestRule.apply {
-            onNodeWithText(go).assertIsDisplayed()
+            onNodeWithText(search).assertIsDisplayed()
         }
     }
 
@@ -43,7 +43,7 @@ class NavigationTest {
     fun navigateToRepo_repoScreenShowed() {
         composeTestRule.apply {
             onNodeWithText(repositoryName).performTextInput(repoName)
-            onNodeWithText(go).performClick()
+            onNodeWithText(search).performClick()
             onNodeWithText(repositoryDetails).assertIsDisplayed()
         }
     }
@@ -52,9 +52,9 @@ class NavigationTest {
     fun repoScreen_navigateUp_searchScreenShowed() {
         composeTestRule.apply {
             onNodeWithText(repositoryName).performTextInput(repoName)
-            onNodeWithText(go).performClick()
+            onNodeWithText(search).performClick()
             onNodeWithContentDescription(navigateUp).performClick()
-            onNodeWithText(go).assertIsDisplayed()
+            onNodeWithText(search).assertIsDisplayed()
         }
     }
 }

@@ -51,7 +51,7 @@ fun RepoScreen(
                 },
                 colors = TopAppBarDefaults.smallTopAppBarColors()
             )
-        }
+        },
     ) {
         Column(
             modifier = Modifier

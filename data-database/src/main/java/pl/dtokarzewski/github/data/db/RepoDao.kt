@@ -1,13 +1,11 @@
 package pl.dtokarzewski.github.data.db
 
-import android.util.SparseIntArray
 import androidx.annotation.OpenForTesting
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 import pl.dtokarzewski.github.data.db.model.DbRepo
 
 /**
@@ -15,19 +13,22 @@ import pl.dtokarzewski.github.data.db.model.DbRepo
  */
 @Dao
 @OpenForTesting
-abstract class RepoDao {
+interface RepoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insert(vararg repos: DbRepo)
+    suspend fun insert(vararg repos: DbRepo)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertRepos(repositories: List<DbRepo>)
+    suspend fun insertRepos(repositories: List<DbRepo>)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    abstract fun createRepoIfNotExists(repo: DbRepo): Long
+    suspend fun createRepoIfNotExists(repo: DbRepo): Long
 
     @Query("SELECT * FROM repo WHERE owner_login = :ownerLogin AND name = :name")
-    abstract fun load(ownerLogin: String, name: String): LiveData<DbRepo>
+    suspend fun getRepo(ownerLogin: String, name: String): DbRepo
+
+    @Query("DELETE FROM repo WHERE owner_login = :ownerLogin AND name = :name")
+    suspend fun deleteRepo(ownerLogin: String, name: String)
 
     @Query(
         """
@@ -35,19 +36,5 @@ abstract class RepoDao {
         WHERE owner_login = :owner
         ORDER BY stars DESC"""
     )
-    abstract fun loadRepositories(owner: String): LiveData<List<DbRepo>>
-
-    fun loadOrdered(repoIds: List<Int>): LiveData<List<DbRepo>> {
-        val order = SparseIntArray()
-        repoIds.withIndex().forEach {
-            order.put(it.value, it.index)
-        }
-        return loadById(repoIds).map { repositories ->
-            repositories.sortedWith(compareBy { order.get(it.id) })
-        }
-    }
-
-    @Query("SELECT * FROM Repo WHERE id in (:repoIds)")
-    protected abstract fun loadById(repoIds: List<Int>): LiveData<List<DbRepo>>
-
+    fun getReposForOwner(owner: String): Flow<List<DbRepo>>
 }

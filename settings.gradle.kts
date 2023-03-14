@@ -17,12 +17,13 @@ dependencyResolutionManagement {
 rootProject.name = "GitHub Browser"
 
 include(":app")
-include(":core-designsystem")
-include(":core-ui")
-include(":feature-search")
-include(":feature-repo")
 include(":core-common")
+include(":core-ui")
+include(":core-designsystem")
+include(":data")
 include(":data-network")
 include(":data-model")
 include(":data-database")
-include(":data")
+include(":domain")
+include(":feature-search")
+include(":feature-repo")
