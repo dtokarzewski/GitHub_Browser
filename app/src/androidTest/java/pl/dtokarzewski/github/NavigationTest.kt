@@ -2,6 +2,7 @@ package pl.dtokarzewski.github
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
 import org.junit.Rule
@@ -13,7 +14,10 @@ import pl.dtokarzewski.github.feature.search.R as FeatureSearchR
 @HiltAndroidTest
 class NavigationTest {
 
-    @get:Rule()
+    @get:Rule(order = 0)
+    val hiltRule = HiltAndroidRule(this)
+
+    @get:Rule(order = 1)
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
     private lateinit var repositoryName: String

@@ -14,7 +14,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "pl.dtokarzewski.github.core.test.GithubTestRunner"
     }
 
     buildTypes {
@@ -35,6 +35,13 @@ android {
     @Suppress("UnstableApiUsage")
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
+    }
+
+    @Suppress("UnstableApiUsage")
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
     }
 }
 
@@ -61,15 +68,13 @@ dependencies {
     kapt(libs.hilt.compiler)
     implementation(libs.timber)
 
+    kaptAndroidTest(libs.hilt.compiler)
+    androidTestImplementation(project(":core-test"))
+    androidTestImplementation(project(":data-test"))
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test)
     debugImplementation(libs.androidx.compose.ui.testManifest)
     androidTestImplementation(libs.androidx.navigation.testing)
-    androidTestImplementation(libs.androidx.test.core)
-    androidTestImplementation(libs.androidx.test.espresso.core)
-    androidTestImplementation(libs.androidx.test.runner)
-    androidTestImplementation(libs.androidx.test.rules)
-    androidTestImplementation(libs.hilt.android.testing)
-    androidTestImplementation(libs.junit4)
     androidTestImplementation(kotlin("test"))
+
 }

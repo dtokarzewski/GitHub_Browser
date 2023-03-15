@@ -10,7 +10,7 @@ android {
     namespace = "pl.dtokarzewski.github.data"
 
     defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "pl.dtokarzewski.github.core.test.GithubTestRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -35,10 +35,15 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.kotlinx.coroutines.android)
+
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+    kaptAndroidTest(libs.hilt.compiler)
+
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.datetime)
     implementation(libs.retrofit.core)
     implementation(libs.timber)
+
+    testImplementation(project(":core-test"))
 }
