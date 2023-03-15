@@ -11,22 +11,21 @@ import androidx.room.Index
         Index("owner_login")],
     primaryKeys = ["name", "owner_login"]
 )
-data class DbRepo(
+data class RepoDbModel(
     val id: Int,
     val name: String,
     val fullName: String,
     val description: String?,
     @field:Embedded(prefix = "owner_")
-    val owner: Owner,
+    val owner: OwnerDbModel,
     val stars: Int
 ) {
-
-    data class Owner(
-        val login: String,
-        val url: String?
-    )
-
     companion object {
         const val UNKNOWN_ID = -1
     }
 }
+
+data class OwnerDbModel(
+    val login: String,
+    val url: String?
+)

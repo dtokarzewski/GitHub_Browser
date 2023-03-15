@@ -3,13 +3,13 @@ package pl.dtokarzewski.github.data.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import pl.dtokarzewski.github.data.db.dao.RepoDao
-import pl.dtokarzewski.github.data.db.model.DbCommit
-import pl.dtokarzewski.github.data.db.model.DbRepo
+import pl.dtokarzewski.github.data.db.model.CommitDbModel
+import pl.dtokarzewski.github.data.db.model.RepoDbModel
 
 @Database(
     entities = [
-        DbCommit::class,
-        DbRepo::class],
+        CommitDbModel::class,
+        RepoDbModel::class],
     version = 4,
     exportSchema = false
 )

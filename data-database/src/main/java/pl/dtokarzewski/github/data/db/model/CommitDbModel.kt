@@ -12,29 +12,29 @@ import androidx.room.Index
     ],
     primaryKeys = ["sha"]
 )
-class DbCommit(
+data class CommitDbModel(
     @field:Embedded
-    val commit: CommitDetails,
+    val commit: CommitDetailsDbModel,
     val sha: String,
     val htmlUrl: String,
     val repoId: Int
 ) {
-    data class CommitDetails(
-        @field:Embedded(prefix = "author_")
-        val author: Contributor,
-        val commentCount: Int,
-        @field:Embedded(prefix = "committer")
-        val committer: Contributor,
-        val message: String,
-    )
-
-    data class Contributor(
-        val date: String,
-        val email: String,
-        val name: String
-    )
-
     companion object {
         const val UNKNOWN_ID = -1
     }
 }
+
+data class CommitDetailsDbModel(
+    @field:Embedded(prefix = "author_")
+    val author: ContributorDbModel,
+    val commentCount: Int,
+    @field:Embedded(prefix = "committer")
+    val committer: ContributorDbModel,
+    val message: String,
+)
+
+data class ContributorDbModel(
+    val date: String,
+    val email: String,
+    val name: String
+)

@@ -7,10 +7,9 @@ data class Repo(
     val description: String?,
     val owner: Owner,
     val stars: Int
-) {
+)
 
-    data class Owner(
-        val login: String,
-        val url: String?
-    )
-}
+data class Owner(
+    val login: String,
+    val url: String?
+)

@@ -1,19 +1,19 @@
-package pl.dtokarzewski.github.data.repository
+package pl.dtokarzewski.github.data.repo
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import pl.dtokarzewski.github.core.model.Repo
-import pl.dtokarzewski.github.core.network.RetrofitGithubDataSource
+import pl.dtokarzewski.github.core.network.repo.RemoteRepoDataSource
 import pl.dtokarzewski.github.data.db.dao.RepoDao
-import pl.dtokarzewski.github.data.mapper.mapToDbRepo
-import pl.dtokarzewski.github.data.mapper.mapToRepo
+import pl.dtokarzewski.github.data.repo.mapper.mapToRepo
+import pl.dtokarzewski.github.data.repo.mapper.mapToRepoDbModel
 import retrofit2.HttpException
 import timber.log.Timber
 import javax.inject.Inject
 
 class RepoRepositoryImpl @Inject constructor(
     private val repoDao: RepoDao,
-    private val network: RetrofitGithubDataSource
+    private val network: RemoteRepoDataSource
 ) : RepoRepository {
 
     override suspend fun getRepo(owner: String, name: String): Result<Repo> {
@@ -45,7 +45,7 @@ class RepoRepositoryImpl @Inject constructor(
 
     private suspend fun updateDatabaseWithRepo(repo: Repo) {
         Timber.d("Saving repo ${repo.owner}/${repo.name} in Db")
-        val dbRepo = repo.mapToDbRepo()
+        val dbRepo = repo.mapToRepoDbModel()
         repoDao.insert(dbRepo)
     }
 

@@ -14,6 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import pl.dtokarzewski.github.core.model.Owner
 import pl.dtokarzewski.github.core.model.Repo
 import pl.dtokarzewski.github.feature.repo.R
 import pl.dtokarzewski.github.core.ui.R as CoreUiR
@@ -96,7 +97,7 @@ fun RepoScreenPreview() {
         name = "Hello-World",
         fullName = "octocat/Hello-World",
         description =  "This your first repo!",
-        owner = Repo.Owner(login = "octocat", url = "https://api.github.com/users/octocat"),
+        owner = Owner(login = "octocat", url = "https://api.github.com/users/octocat"),
         stars = 80
     )
     RepoScreen(

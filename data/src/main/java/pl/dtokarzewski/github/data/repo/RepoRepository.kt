@@ -1,4 +1,4 @@
-package pl.dtokarzewski.github.data.repository
+package pl.dtokarzewski.github.data.repo
 
 import kotlinx.coroutines.flow.Flow
 import pl.dtokarzewski.github.core.model.Repo

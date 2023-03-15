@@ -4,8 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import pl.dtokarzewski.github.data.repository.RepoRepository
-import pl.dtokarzewski.github.data.repository.RepoRepositoryImpl
+import pl.dtokarzewski.github.data.repo.RepoRepository
+import pl.dtokarzewski.github.data.repo.RepoRepositoryImpl
 
 @Module
 @InstallIn(SingletonComponent::class)

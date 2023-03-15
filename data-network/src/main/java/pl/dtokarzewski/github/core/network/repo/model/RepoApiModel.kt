@@ -1,10 +1,10 @@
-package pl.dtokarzewski.github.core.network.model
+package pl.dtokarzewski.github.core.network.repo.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class NetworkRepo(
+data class RepoApiModel(
     val id: Int,
     @SerialName("name")
     val name: String,
@@ -13,16 +13,15 @@ data class NetworkRepo(
     @SerialName("description")
     val description: String?,
     @SerialName("owner")
-    val owner: Owner,
+    val owner: OwnerApiModel,
     @SerialName("stargazers_count")
     val stars: Int
-) {
+)
 
-    @Serializable
-    data class Owner(
-        @SerialName("login")
-        val login: String,
-        @SerialName("url")
-        val url: String?
-    )
-}
+@Serializable
+data class OwnerApiModel(
+    @SerialName("login")
+    val login: String,
+    @SerialName("url")
+    val url: String?
+)

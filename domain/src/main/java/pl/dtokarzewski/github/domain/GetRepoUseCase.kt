@@ -3,7 +3,7 @@ package pl.dtokarzewski.github.domain
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import pl.dtokarzewski.github.core.common.network.IoDispatcher
-import pl.dtokarzewski.github.data.repository.RepoRepository
+import pl.dtokarzewski.github.data.repo.RepoRepository
 import javax.inject.Inject
 
 class GetRepoUseCase @Inject constructor(
