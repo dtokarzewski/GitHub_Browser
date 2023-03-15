@@ -43,21 +43,31 @@ class NavigationTest {
         }
     }
 
+    /* Verify navigation from SearchScreen to RepoScreen when user clicks Search button. */
     @Test
     fun navigateToRepo_repoScreenShowed() {
         composeTestRule.apply {
+            // GIVEN Clear current input and put this repo name
+            onNodeWithText(repositoryName).performTextClearance()
             onNodeWithText(repositoryName).performTextInput(repoName)
+            // WHEN Navigate to RepoScreen
             onNodeWithText(search).performClick()
+            // THEN verify RepoScreen visible
             onNodeWithText(repositoryDetails).assertIsDisplayed()
         }
     }
 
+    /* Verify navigation back from RepoScreen to SearchScreen when user clicks TopAppBar back button. */
     @Test
     fun repoScreen_navigateUp_searchScreenShowed() {
         composeTestRule.apply {
+            // GIVEN Clear current input and put this repo name and navigate to RepoScreen
+            onNodeWithText(repositoryName).performTextClearance()
             onNodeWithText(repositoryName).performTextInput(repoName)
             onNodeWithText(search).performClick()
+            // WHEN navigate up
             onNodeWithContentDescription(navigateUp).performClick()
+            // THEN verify SearchScreen visible again
             onNodeWithText(search).assertIsDisplayed()
         }
     }
