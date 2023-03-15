@@ -2,6 +2,7 @@ package pl.dtokarzewski.github.domain
 
 import org.junit.Before
 import org.junit.Test
+import pl.dtokarzewski.github.domain.repo.ValidateRepoNameUseCase
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 

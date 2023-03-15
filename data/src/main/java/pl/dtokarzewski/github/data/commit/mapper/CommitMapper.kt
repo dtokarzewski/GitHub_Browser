@@ -16,3 +16,9 @@ fun Commit.mapToDbCommit(repoId: Int) = CommitDbModel(
     repoId = repoId,
     commit = this.commit.mapToCommitDetailsDbModel()
 )
+
+fun CommitDbModel.mapToCommit() = Commit(
+    sha = this.sha,
+    htmlUrl = this.htmlUrl,
+    commit = this.commit.mapToCommitDetails()
+)

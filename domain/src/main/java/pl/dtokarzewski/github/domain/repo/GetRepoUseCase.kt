@@ -1,4 +1,4 @@
-package pl.dtokarzewski.github.domain
+package pl.dtokarzewski.github.domain.repo
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext

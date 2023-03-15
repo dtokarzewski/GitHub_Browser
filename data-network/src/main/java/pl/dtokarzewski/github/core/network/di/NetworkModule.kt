@@ -11,6 +11,8 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import pl.dtokarzewski.github.core.network.commit.CommitDataSource
+import pl.dtokarzewski.github.core.network.commit.RemoteCommitDataSource
 import pl.dtokarzewski.github.core.network.repo.RemoteRepoDataSource
 import pl.dtokarzewski.github.core.network.repo.RepoDataSource
 import pl.dtokarzewski.github.data.network.BuildConfig
@@ -58,7 +60,12 @@ abstract class NetworkModule {
     }
 
     @Binds
-    abstract fun bindGithubNetworkDataSource(
-        retrofitDataSource: RemoteRepoDataSource
+    abstract fun bindRepoDataSource(
+        remoteDataSource: RemoteRepoDataSource
     ): RepoDataSource
+
+    @Binds
+    abstract fun bindCommitDataSource(
+        commitDataSource: RemoteCommitDataSource
+    ): CommitDataSource
 }

@@ -3,6 +3,7 @@ package pl.dtokarzewski.github.feature.repo.ui
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -14,6 +15,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.PagingData
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
+import kotlinx.coroutines.flow.flowOf
+import pl.dtokarzewski.github.core.model.Commit
 import pl.dtokarzewski.github.core.model.Owner
 import pl.dtokarzewski.github.core.model.Repo
 import pl.dtokarzewski.github.feature.repo.R
@@ -25,9 +32,11 @@ fun RepoRoute(
     navigateUp: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val commits = viewModel.commits.collectAsLazyPagingItems()
 
     RepoScreen(
         uiState = uiState,
+        commits = commits,
         navigateUp = navigateUp
     )
 }
@@ -36,6 +45,7 @@ fun RepoRoute(
 @Composable
 fun RepoScreen(
     uiState: RepoUiState,
+    commits: LazyPagingItems<Commit>,
     navigateUp: () -> Unit
 ) {
     val repo = (uiState as? RepoUiState.Success)?.repo
@@ -85,6 +95,17 @@ fun RepoScreen(
                 ),
                 style = MaterialTheme.typography.bodyMedium
             )
+
+            LazyColumn {
+                items(commits) {
+                    it?.let {
+                        Text(
+                            modifier = Modifier.padding(vertical = 8.dp),
+                            text = "${it.sha.take(9)} : ${it.commit.message}"
+                        )
+                    }
+                }
+            }
         }
     }
 }
@@ -102,6 +123,7 @@ fun RepoScreenPreview() {
     )
     RepoScreen(
         uiState = RepoUiState.Success(repo),
+        commits = flowOf(PagingData.empty<Commit>()).collectAsLazyPagingItems(),
         navigateUp = {}
     )
 }

@@ -8,6 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import pl.dtokarzewski.github.data.db.GithubDatabase
+import pl.dtokarzewski.github.data.db.dao.CommitDao
 import pl.dtokarzewski.github.data.db.dao.RepoDao
 import javax.inject.Singleton
 
@@ -29,4 +30,9 @@ object DatabaseModule {
     fun provideRepoDao(
         database: GithubDatabase
     ): RepoDao = database.repoDao()
+
+    @Provides
+    fun provideCommitDao(
+        database: GithubDatabase
+    ) : CommitDao = database.commitDao()
 }

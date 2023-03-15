@@ -2,6 +2,7 @@ package pl.dtokarzewski.github.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import pl.dtokarzewski.github.data.db.dao.CommitDao
 import pl.dtokarzewski.github.data.db.dao.RepoDao
 import pl.dtokarzewski.github.data.db.model.CommitDbModel
 import pl.dtokarzewski.github.data.db.model.RepoDbModel
@@ -16,4 +17,6 @@ import pl.dtokarzewski.github.data.db.model.RepoDbModel
 abstract class GithubDatabase : RoomDatabase() {
 
     abstract fun repoDao(): RepoDao
+
+    abstract fun commitDao() : CommitDao
 }

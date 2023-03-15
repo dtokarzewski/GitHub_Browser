@@ -7,9 +7,9 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import pl.dtokarzewski.github.core.common.util.logViewState
 import pl.dtokarzewski.github.core.model.Repo
-import pl.dtokarzewski.github.domain.GetAllReposUseCase
-import pl.dtokarzewski.github.domain.GetRepoUseCase
-import pl.dtokarzewski.github.domain.ValidateRepoNameUseCase
+import pl.dtokarzewski.github.domain.repo.GetAllReposUseCase
+import pl.dtokarzewski.github.domain.repo.GetRepoUseCase
+import pl.dtokarzewski.github.domain.repo.ValidateRepoNameUseCase
 import javax.inject.Inject
 
 @HiltViewModel
