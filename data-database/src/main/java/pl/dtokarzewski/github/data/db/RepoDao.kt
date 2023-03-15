@@ -27,6 +27,9 @@ interface RepoDao {
     @Query("SELECT * FROM repo WHERE owner_login = :ownerLogin AND name = :name")
     suspend fun getRepo(ownerLogin: String, name: String): DbRepo
 
+    @Query("SELECT * FROM repo WHERE owner_login = :ownerLogin AND name = :name")
+    fun getRepoAsFlow(ownerLogin: String, name: String): Flow<DbRepo>
+
     @Query("DELETE FROM repo WHERE owner_login = :ownerLogin AND name = :name")
     suspend fun deleteRepo(ownerLogin: String, name: String): Int
 

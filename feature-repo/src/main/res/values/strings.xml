@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="repo_details">Repository details</string>
+    <string name="repo_id">Repository id: %s</string>
+    <string name="repo_stars">Stars count: %s</string>
 </resources>

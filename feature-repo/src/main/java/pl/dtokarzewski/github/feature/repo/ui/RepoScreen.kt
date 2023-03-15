@@ -14,6 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import pl.dtokarzewski.github.core.model.Repo
 import pl.dtokarzewski.github.feature.repo.R
 import pl.dtokarzewski.github.core.ui.R as CoreUiR
 
@@ -36,11 +37,12 @@ fun RepoScreen(
     uiState: RepoUiState,
     navigateUp: () -> Unit
 ) {
+    val repo = (uiState as? RepoUiState.Success)?.repo
     Scaffold(
         topBar = {
             TopAppBar(
                 modifier = Modifier,
-                title = { Text(text = uiState.repoName) },
+                title = { Text(text = repo?.name ?: "") },
                 navigationIcon = {
                     IconButton(onClick = navigateUp) {
                         Icon(
@@ -62,7 +64,25 @@ fun RepoScreen(
             Text(
                 modifier = Modifier.padding(vertical = 12.dp),
                 text = stringResource(id = R.string.repo_details),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleLarge
+            )
+
+            Text(
+                modifier = Modifier.padding(vertical = 12.dp),
+                text = stringResource(
+                    R.string.repo_id,
+                    repo?.id ?: 0
+                ),
+                style = MaterialTheme.typography.bodyMedium
+            )
+
+            Text(
+                modifier = Modifier.padding(vertical = 12.dp),
+                text = stringResource(
+                    R.string.repo_stars,
+                    repo?.stars ?: 0
+                ),
+                style = MaterialTheme.typography.bodyMedium
             )
         }
     }
@@ -71,8 +91,16 @@ fun RepoScreen(
 @Composable
 @Preview(name = "RepoScreen", device = "id:pixel_5")
 fun RepoScreenPreview() {
+    val repo = Repo(
+        id = 1296269,
+        name = "Hello-World",
+        fullName = "octocat/Hello-World",
+        description =  "This your first repo!",
+        owner = Repo.Owner(login = "octocat", url = "https://api.github.com/users/octocat"),
+        stars = 80
+    )
     RepoScreen(
-        uiState = RepoUiState.Success("dtokarzewski/GitHub"),
+        uiState = RepoUiState.Success(repo),
         navigateUp = {}
     )
 }

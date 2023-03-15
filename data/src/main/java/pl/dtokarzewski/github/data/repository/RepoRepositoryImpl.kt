@@ -36,7 +36,12 @@ class RepoRepositoryImpl @Inject constructor(
             }
     }
 
-    override fun getAllRepos(): Flow<List<Repo>> = repoDao.getAllRepos()
+    override fun getRepoAsFlow(owner: String, name: String) = repoDao
+        .getRepoAsFlow(owner, name)
+        .map { DbRepoToRepoMapper.map(it) }
+
+    override fun getAllRepos(): Flow<List<Repo>> = repoDao
+        .getAllRepos()
         .map { repos -> repos.map { DbRepoToRepoMapper.map(it) } }
 
     private suspend fun updateDatabaseWithRepo(repo: Repo) {

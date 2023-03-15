@@ -7,5 +7,7 @@ interface RepoRepository {
 
     suspend fun getRepo(owner: String, name: String): Result<Repo>
 
+    fun getRepoAsFlow(owner: String, name: String): Flow<Repo>
+
     fun getAllRepos(): Flow<List<Repo>>
 }

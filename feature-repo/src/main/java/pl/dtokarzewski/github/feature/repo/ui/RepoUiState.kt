@@ -1,18 +1,17 @@
 package pl.dtokarzewski.github.feature.repo.ui
 
-sealed class RepoUiState {
-    abstract val repoName: String
+import pl.dtokarzewski.github.core.model.Repo
 
-    data class Loading(
-        override val repoName: String
-    ) : RepoUiState()
+sealed class RepoUiState {
+
+    object Loading : RepoUiState()
 
     data class Success(
-        override val repoName: String
+        val repo: Repo
     ) : RepoUiState()
 
     data class Error(
         val error: Throwable,
-        override val repoName: String
+        val repo: Repo
     ) : RepoUiState()
 }
