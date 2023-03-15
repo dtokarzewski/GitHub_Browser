@@ -1,78 +1,61 @@
 package pl.dtokarzewski.github.data.mapper
 
-import pl.dtokarzewski.github.core.common.mapper.Mapper
 import pl.dtokarzewski.github.core.model.Repo
 import pl.dtokarzewski.github.core.network.model.NetworkRepo
 import pl.dtokarzewski.github.data.db.model.DbRepo
 
-object RepoToDbRepoMapper : Mapper<Repo, DbRepo> {
-    override fun map(input: Repo) = DbRepo(
-        id = input.id,
-        name = input.name,
-        fullName = input.fullName,
-        description = input.description,
-        owner = OwnerToDbOwnerMapper.map(input.owner),
-        stars = input.stars
+fun Repo.mapToDbRepo() = DbRepo(
+        id = this.id,
+        name = this.name,
+        fullName = this.fullName,
+        description = this.description,
+        owner = this.owner.mapToDbRepoOwner(),
+        stars = this.stars
     )
-}
 
-object DbRepoToRepoMapper : Mapper<DbRepo, Repo> {
-    override fun map(input: DbRepo) = Repo(
-        id = input.id,
-        name = input.name,
-        fullName = input.fullName,
-        description = input.description,
-        owner = DbOwnerToOwnerMapper.map(input.owner),
-        stars = input.stars
+fun DbRepo.mapToRepo() = Repo(
+        id = this.id,
+        name = this.name,
+        fullName = this.fullName,
+        description = this.description,
+        owner = this.owner.mapToRepoOwner(),
+        stars = this.stars
     )
-}
 
-object RepoToNetworkRepoMapper : Mapper<Repo, NetworkRepo> {
-    override fun map(input: Repo) = NetworkRepo(
-        id = input.id,
-        name = input.name,
-        fullName = input.fullName,
-        description = input.description,
-        owner = OwnerToNetworkOwnerMapper.map(input.owner),
-        stars = input.stars
+fun Repo.mapToNetworkRepo() = NetworkRepo(
+        id = this.id,
+        name = this.name,
+        fullName = this.fullName,
+        description = this.description,
+        owner = this.owner.mapToNetworkOwner(),
+        stars = this.stars
     )
-}
 
-object NetworkRepoToRepoMapper : Mapper<NetworkRepo, Repo> {
-    override fun map(input: NetworkRepo) = Repo(
-        id = input.id,
-        name = input.name,
-        fullName = input.fullName,
-        description = input.description,
-        owner = NetworkOwnerToOwnerMapper.map(input.owner),
-        stars = input.stars
+fun NetworkRepo.mapToRepo() = Repo(
+        id = this.id,
+        name = this.name,
+        fullName = this.fullName,
+        description = this.description,
+        owner = this.owner.mapToRepoOwner(),
+        stars = this.stars
     )
-}
 
-object OwnerToDbOwnerMapper : Mapper<Repo.Owner, DbRepo.Owner> {
-    override fun map(input: Repo.Owner) = DbRepo.Owner(
-        login = input.login,
-        url = input.url
+fun Repo.Owner.mapToDbRepoOwner() = DbRepo.Owner(
+        login = this.login,
+        url = this.url
     )
-}
 
-object DbOwnerToOwnerMapper : Mapper<DbRepo.Owner, Repo.Owner> {
-    override fun map(input: DbRepo.Owner)= Repo.Owner(
-        login = input.login,
-        url = input.url
+fun DbRepo.Owner.mapToRepoOwner() = Repo.Owner(
+        login = this.login,
+        url = this.url
     )
-}
 
-object OwnerToNetworkOwnerMapper : Mapper<Repo.Owner, NetworkRepo.Owner> {
-    override fun map(input: Repo.Owner) = NetworkRepo.Owner(
-        login = input.login,
-        url = input.url
+fun Repo.Owner.mapToNetworkOwner() = NetworkRepo.Owner(
+        login = this.login,
+        url = this.url
     )
-}
 
-object NetworkOwnerToOwnerMapper : Mapper<NetworkRepo.Owner, Repo.Owner> {
-    override fun map(input: NetworkRepo.Owner) = Repo.Owner(
-        login = input.login,
-        url = input.url
+fun NetworkRepo.Owner.mapToRepoOwner() = Repo.Owner(
+        login = this.login,
+        url = this.url
     )
-}

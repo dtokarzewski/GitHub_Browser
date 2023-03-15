@@ -5,9 +5,8 @@ import kotlinx.coroutines.flow.map
 import pl.dtokarzewski.github.core.model.Repo
 import pl.dtokarzewski.github.core.network.RetrofitGithubDataSource
 import pl.dtokarzewski.github.data.db.dao.RepoDao
-import pl.dtokarzewski.github.data.mapper.DbRepoToRepoMapper
-import pl.dtokarzewski.github.data.mapper.NetworkRepoToRepoMapper
-import pl.dtokarzewski.github.data.mapper.RepoToDbRepoMapper
+import pl.dtokarzewski.github.data.mapper.mapToDbRepo
+import pl.dtokarzewski.github.data.mapper.mapToRepo
 import retrofit2.HttpException
 import timber.log.Timber
 import javax.inject.Inject
@@ -21,7 +20,7 @@ class RepoRepositoryImpl @Inject constructor(
         // Prefer remote
         return runCatching {
             network.getRepo(owner, name)
-        }.map { NetworkRepoToRepoMapper.map(it) }
+        }.map { it.mapToRepo() }
             .onSuccess {
                 updateDatabaseWithRepo(it)
             }.recoverCatching {
@@ -38,23 +37,22 @@ class RepoRepositoryImpl @Inject constructor(
 
     override fun getRepoAsFlow(owner: String, name: String) = repoDao
         .getRepoAsFlow(owner, name)
-        .map { DbRepoToRepoMapper.map(it) }
+        .map { it.mapToRepo() }
 
     override fun getAllRepos(): Flow<List<Repo>> = repoDao
         .getAllRepos()
-        .map { repos -> repos.map { DbRepoToRepoMapper.map(it) } }
+        .map { repos -> repos.map { it.mapToRepo() } }
 
     private suspend fun updateDatabaseWithRepo(repo: Repo) {
         Timber.d("Saving repo ${repo.owner}/${repo.name} in Db")
-        val dbRepo = repo
-            .let { RepoToDbRepoMapper.map(it) }
+        val dbRepo = repo.mapToDbRepo()
         repoDao.insert(dbRepo)
     }
 
     private suspend fun getRepoFromDb(owner: String, name: String): Repo {
         Timber.d("Failed to get repo $owner/$name from GitHub. Trying to get from local Db")
         val dbRepo = repoDao.getRepo(owner, name)
-        return DbRepoToRepoMapper.map(dbRepo)
+        return dbRepo.mapToRepo()
     }
 
     private suspend fun deleteRepoFromDb(owner: String, name: String) {
