@@ -1,6 +1,5 @@
-package pl.dtokarzewski.github.data.db
+package pl.dtokarzewski.github.data.db.dao
 
-import androidx.annotation.OpenForTesting
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -8,11 +7,7 @@ import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 import pl.dtokarzewski.github.data.db.model.DbRepo
 
-/**
- * Interface for database access on Repo related operations.
- */
 @Dao
-@OpenForTesting
 interface RepoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -38,8 +38,9 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.datetime)
 
-    implementation(libs.room.runtime)
-    implementation(libs.room.ktx)
+    api(libs.room.runtime)
+    api(libs.room.ktx)
+    api(libs.room.paging)
     kapt(libs.room.compiler)
 
     implementation(libs.timber)

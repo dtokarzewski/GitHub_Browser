@@ -8,7 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import pl.dtokarzewski.github.data.db.GithubDatabase
-import pl.dtokarzewski.github.data.db.RepoDao
+import pl.dtokarzewski.github.data.db.dao.RepoDao
 import javax.inject.Singleton
 
 @Module

@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import pl.dtokarzewski.github.core.model.Repo
 import pl.dtokarzewski.github.core.network.RetrofitGithubDataSource
-import pl.dtokarzewski.github.data.db.RepoDao
+import pl.dtokarzewski.github.data.db.dao.RepoDao
 import pl.dtokarzewski.github.data.mapper.DbRepoToRepoMapper
 import pl.dtokarzewski.github.data.mapper.NetworkRepoToRepoMapper
 import pl.dtokarzewski.github.data.mapper.RepoToDbRepoMapper

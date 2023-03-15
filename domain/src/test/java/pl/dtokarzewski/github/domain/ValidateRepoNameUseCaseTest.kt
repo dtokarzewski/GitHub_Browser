@@ -5,7 +5,7 @@ import org.junit.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-internal class ValidateRepoNameUseCaseTest {
+class ValidateRepoNameUseCaseTest {
 
     lateinit var useCase: ValidateRepoNameUseCase
 
@@ -53,5 +53,4 @@ internal class ValidateRepoNameUseCaseTest {
     fun validateName_onStandardCharacters_Valid() {
         assertTrue { useCase.invoke("owner_2/repo-3") }
     }
-
 }
