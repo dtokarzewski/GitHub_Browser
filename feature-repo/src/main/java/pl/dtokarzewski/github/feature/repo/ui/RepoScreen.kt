@@ -100,8 +100,8 @@ fun RepoScreen(
                 items(commits) {
                     it?.let {
                         Text(
-                            modifier = Modifier.padding(vertical = 8.dp),
-                            text = "${it.sha.take(9)} : ${it.commit.message}"
+                            modifier = Modifier.padding(vertical = 12.dp),
+                            text = "${it.sha.take(9)} : ${it.commit.author.date}\n${it.commit.message}"
                         )
                     }
                 }

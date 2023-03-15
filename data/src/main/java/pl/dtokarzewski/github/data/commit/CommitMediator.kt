@@ -26,10 +26,10 @@ class CommitMediator(
     ): MediatorResult {
         return try {
             val loadKey = when (loadType) {
-                LoadType.REFRESH -> null
-                LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
+                LoadType.REFRESH -> 1
+                LoadType.PREPEND -> 1
                 LoadType.APPEND -> {
-                    val lastItem = state.lastItemOrNull()
+                    state.lastItemOrNull()
                         ?: return MediatorResult.Success(
                             endOfPaginationReached = true
                         )
@@ -37,7 +37,7 @@ class CommitMediator(
                 }
             }
 
-            val commits = commitDataSource.getCommits(repo.owner.login, repo.name, loadKey ?: 1)
+            val commits = commitDataSource.getCommits(repo.owner.login, repo.name, loadKey)
 
             commitDao.insertAll(commits.map { it.mapToCommit().mapToDbCommit(repo.id) })
 

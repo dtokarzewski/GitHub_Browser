@@ -16,6 +16,6 @@ interface CommitDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(commits: List<CommitDbModel>)
 
-    @Query("SELECT * FROM `commit` WHERE repoId = :repoId ORDER BY author_date ASC")
+    @Query("SELECT * FROM `commit` WHERE repoId = :repoId ORDER BY author_date DESC")
     fun getPagedCommits(repoId: Int): PagingSource<Int, CommitDbModel>
 }
