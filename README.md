@@ -52,16 +52,18 @@ domain layers get data from database - never from network directly.
 `data-network` and `data-database` modules have their own equivalent of those models.
 
 #### Domain layer
-Place for business logic represented by UseCases.
+Place for business logic represented by `UseCase`-s.
 
 #### UI layer
 * UI elements build using `Jetpack Compose`
-* `ViewModel`s
+* `ViewModel`-s
 * Stored in `feature-xxx` modules
 
 ## TODO
+* Test RemoteMediator
 * Add abstraction layer in UseCases for ViewModel isolation
 * Write ViewModel's tests
 * Write Repositories tests
 * Configure CI
 * Add some styling
+* Add more instrumented tests
