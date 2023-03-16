@@ -32,7 +32,7 @@ components/libraries used:
 * Retrofit
 * OkHttp
 
-### Architecture
+## Architecture
 Project have multi-module architecture. It's an overkill to make such complex architecture for such
 a small project, but it's goal was to make it as if it was big commercial project.
 
@@ -59,7 +59,7 @@ Place for business logic represented by UseCases.
 * `ViewModel`s
 * Stored in `feature-xxx` modules
 
-### TODO
+## TODO
 * Add abstraction layer in UseCases for ViewModel isolation
 * Write ViewModel's tests
 * Write Repositories tests
