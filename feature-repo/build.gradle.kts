@@ -55,5 +55,9 @@ dependencies {
     implementation(libs.androidx.paging.compose)
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+    implementation(libs.kotlinx.coroutines.android)
     implementation(libs.timber)
+
+    testImplementation(project(":data"))
+    testImplementation(project(":core-test"))
 }

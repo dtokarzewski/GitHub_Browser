@@ -60,10 +60,10 @@ Place for business logic represented by `UseCase`-s.
 * Stored in `feature-xxx` modules
 
 ## TODO
-* Test RemoteMediator
-* Add abstraction layer in UseCases for ViewModel isolation
+* Test RemoteMediator - verify if paging works well
 * Write ViewModel's tests
 * Write Repositories tests
 * Configure CI
 * Add some styling
 * Add more instrumented tests
+* Add GradleDependencyUpdate plugin or something similar

@@ -4,6 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
+import pl.dtokarzewski.github.data.commit.CommitRepository
+import pl.dtokarzewski.github.data.commit.CommitRepositoryImpl
 import pl.dtokarzewski.github.data.di.DataModule
 import pl.dtokarzewski.github.data.repo.FakeRepoRepository
 import pl.dtokarzewski.github.data.repo.RepoRepository
@@ -17,4 +19,7 @@ interface TestDataModule {
 
     @Binds
     fun bindRepoRepository(fakeRepository: FakeRepoRepository): RepoRepository
+
+    @Binds
+    fun bindCommitRepository(repository: CommitRepositoryImpl): CommitRepository
 }

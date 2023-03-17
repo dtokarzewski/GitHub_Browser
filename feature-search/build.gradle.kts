@@ -55,4 +55,7 @@ dependencies {
     kapt(libs.hilt.compiler)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.timber)
+
+    testImplementation(project(":data"))
+    testImplementation(project(":core-test"))
 }

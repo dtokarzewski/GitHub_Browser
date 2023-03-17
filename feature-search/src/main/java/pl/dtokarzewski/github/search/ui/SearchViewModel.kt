@@ -49,7 +49,7 @@ class SearchViewModel @Inject constructor(
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = SearchUiState.Loading("dtokarzewski/GitHub_Browser", true, emptyList())
+        initialValue = SearchUiState.Idle("dtokarzewski/GitHub_Browser", true, emptyList())
     )
 
     init {
