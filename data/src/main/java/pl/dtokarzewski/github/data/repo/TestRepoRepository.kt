@@ -1,9 +1,9 @@
 package pl.dtokarzewski.github.data.repo
 
-import android.content.res.Resources.NotFoundException
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import pl.dtokarzewski.github.core.model.Repo
 
@@ -13,9 +13,10 @@ class TestRepoRepository() : RepoRepository {
         replay = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
-    private var repoResult: Result<Repo> = Result.failure(NotFoundException())
 
-    override suspend fun getRepo(owner: String, name: String): Result<Repo> = repoResult
+    private var repoResult = MutableSharedFlow<Result<Repo>>()
+
+    override suspend fun getRepo(owner: String, name: String): Result<Repo> = repoResult.first()
 
     override fun getRepoAsFlow(owner: String, name: String): Flow<Repo> =
         reposFlow.map {
@@ -28,7 +29,7 @@ class TestRepoRepository() : RepoRepository {
         reposFlow.tryEmit(repos)
     }
 
-    fun setRepoResult(repoResult: Result<Repo>) {
-        this.repoResult = repoResult
+    suspend fun setRepoResult(repoResult: Result<Repo>) {
+        this.repoResult.emit(repoResult)
     }
 }

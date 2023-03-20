@@ -2,7 +2,7 @@
 <resources>
     <string name="search">Search</string>
     <string name="repository_name">Repository name</string>
-    <string name="repository_name_hint">user/repo</string>
+    <string name="repository_name_hint">e.g. dtokarzewski/GitHub_Browser</string>
     <string name="recent_repositories">Recent repositories</string>
     <string name="go">Go</string>
 </resources>

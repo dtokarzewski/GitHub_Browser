@@ -19,8 +19,8 @@ class SearchViewModel @Inject constructor(
     getAllReposUseCase: GetAllReposUseCase
 ) : ViewModel() {
 
-    private val query = MutableStateFlow("dtokarzewski/GitHub_Browser")
-    private val queryValid = MutableStateFlow(true)
+    private val query = MutableStateFlow("")
+    private val queryValid = MutableStateFlow(false)
     private val queryState = MutableStateFlow<QueryState>(QueryState.Idle)
 
     val uiState: StateFlow<SearchUiState> = combine(
@@ -49,7 +49,7 @@ class SearchViewModel @Inject constructor(
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = SearchUiState.Idle("dtokarzewski/GitHub_Browser", true, emptyList())
+        initialValue = SearchUiState.Idle("", false, emptyList())
     )
 
     init {
@@ -69,6 +69,7 @@ class SearchViewModel @Inject constructor(
     }
 
     fun onRecentRepoClicked(repo: Repo) {
+        queryState.value = QueryState.Loading
         query.value = "${repo.owner.login}/${repo.name}"
         queryValid.value = validateRepoNameUseCase(query.value)
         openRepo(repo.owner.login, repo.name)
@@ -90,7 +91,7 @@ class SearchViewModel @Inject constructor(
         queryState.value = QueryState.Idle
     }
 
-    fun onErrorShow() {
+    fun onErrorShown() {
         queryState.value = QueryState.Idle
     }
 

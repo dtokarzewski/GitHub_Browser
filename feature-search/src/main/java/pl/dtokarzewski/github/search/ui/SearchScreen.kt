@@ -47,7 +47,7 @@ fun SearchRoute(
         onRepoNameChanged = viewModel::onQueryChanged,
         onSearchClicked = viewModel::onSearchClicked,
         onRepoClicked = viewModel::onRecentRepoClicked,
-        onErrorShown = viewModel::onErrorShow,
+        onErrorShown = viewModel::onErrorShown,
         snackbarHostState = snackbarHostState
 
     )
