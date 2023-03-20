@@ -61,7 +61,6 @@ Place for business logic represented by `UseCase`-s.
 
 ## TODO
 * Test RemoteMediator - verify if paging works well
-* Write ViewModel's tests
 * Write Repositories tests
 * Configure CI
 * Add some styling

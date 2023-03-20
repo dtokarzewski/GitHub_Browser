@@ -1,6 +1,10 @@
 package pl.dtokarzewski.github.feature.repo.ui
 
 import androidx.lifecycle.SavedStateHandle
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -36,8 +40,8 @@ class RepoViewModelTest {
     @Before
     fun setup() {
         val savedStateHandle = SavedStateHandle(mapOf(
-            ARG_OWNER to fakeRepo.owner.login,
-            ARG_REPO_NAME to fakeRepo.name
+            ARG_OWNER to fakeRepos.first().owner.login,
+            ARG_REPO_NAME to fakeRepos.first().name
         ))
         viewModel = RepoViewModel(
             savedStateHandle = savedStateHandle,
@@ -51,13 +55,36 @@ class RepoViewModelTest {
         assertEquals(RepoUiState.Loading, viewModel.uiState.value)
     }
 
-    private val fakeRepo =
+    @Test
+    fun stateIsSuccess_whenRepoFound() = runTest {
+        val collectJob = launch(UnconfinedTestDispatcher()) { viewModel.uiState.collect() }
+        testRepoRepository.setRepos(fakeRepos)
+
+        assertEquals(
+            RepoUiState.Success(
+                repo = fakeRepos.first()
+            ),
+            viewModel.uiState.value
+        )
+        collectJob.cancel()
+    }
+
+    private val fakeRepos = listOf(
         Repo(
             id = 1296269,
             name = "Hello-World",
             fullName = "octocat/Hello-World",
-            description =  "This your first repo!",
+            description = "This your first repo!",
             owner = Owner(login = "octocat", url = "https://api.github.com/users/octocat"),
             stars = 80
-        )
+        ),
+        Repo(
+            id = 4234532,
+            name = "Hell0-Developer",
+            fullName = "octocat/Hello-Developer",
+            description = "This your second repo!",
+            owner = Owner(login = "octocat", url = "https://api.github.com/users/octocat"),
+            stars = 10
+        ),
+    )
 }
