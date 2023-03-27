@@ -1,5 +1,6 @@
 GitHub Browser
 ===========================================================
+**work in progress**
 
 This project is sample offline-first, redux-style Android app. It's purpose is to be a
 playground for testing various solutions.
