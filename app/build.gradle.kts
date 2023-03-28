@@ -46,6 +46,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core-common"))
     implementation(project(":core-ui"))
     implementation(project(":feature-search"))
     implementation(project(":feature-repo"))

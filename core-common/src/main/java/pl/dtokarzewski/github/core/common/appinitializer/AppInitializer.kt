@@ -1,4 +1,4 @@
-package pl.dtokarzewski.github.appinitializer
+package pl.dtokarzewski.github.core.common.appinitializer
 
 import android.app.Application
 
