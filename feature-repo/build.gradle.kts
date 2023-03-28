@@ -41,7 +41,6 @@ android {
 dependencies {
     implementation(project(":core-common"))
     implementation(project(":core-ui"))
-    implementation(project(":core-designsystem"))
     implementation(project(":data-model"))
     implementation(project(":domain"))
     implementation(libs.androidx.core.ktx)

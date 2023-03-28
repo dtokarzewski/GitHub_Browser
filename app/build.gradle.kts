@@ -46,7 +46,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":core-designsystem"))
     implementation(project(":core-ui"))
     implementation(project(":feature-search"))
     implementation(project(":feature-repo"))

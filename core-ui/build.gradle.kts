@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core-designsystem"))
+    api(project(":core-designsystem"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.accompanist.systemuicontroller)
     implementation(platform(libs.androidx.compose.bom))

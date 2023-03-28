@@ -96,6 +96,10 @@ fun RepoScreen(
                 style = MaterialTheme.typography.bodyMedium
             )
 
+            Divider(
+                modifier = Modifier.padding(vertical = 4.dp)
+            )
+
             LazyColumn {
                 items(commits) {
                     it?.let {
