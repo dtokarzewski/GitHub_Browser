@@ -3,6 +3,7 @@ import com.android.build.gradle.BaseExtension
 buildscript {
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0")
+        classpath(libs.graph.generator)
     }
 }
 @Suppress("DSL_SCOPE_VIOLATION")
@@ -15,6 +16,7 @@ plugins {
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.kotlin.kapt) apply false
     alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.graph.generator) apply true
 }
 
 allprojects {

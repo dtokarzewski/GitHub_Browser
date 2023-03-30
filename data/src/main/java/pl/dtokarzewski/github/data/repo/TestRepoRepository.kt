@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import pl.dtokarzewski.github.core.model.Repo
 
-class TestRepoRepository() : RepoRepository {
+class TestRepoRepository : RepoRepository {
 
     private val reposFlow = MutableSharedFlow<List<Repo>>(
         replay = 1,
