@@ -61,6 +61,9 @@ Place for business logic represented by `UseCase`-s.
 * Stored in `feature-xxx` modules
 
 ## TODO
+* Add GitHub authorization
+* Split domain and data modules into `per-feature` modules
+* Add gradle dependency graph generator plugin and simplify dependencies if needed
 * Test RemoteMediator - verify if paging works well
 * Write Repositories tests
 * Configure CI
