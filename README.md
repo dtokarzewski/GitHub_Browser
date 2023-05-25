@@ -28,6 +28,7 @@ components/libraries used:
 * Jetpack (with Compose)
 * Material Design 3
 * Kotlin Coroutines with FLow
+* Kotlin Serialization
 * Room
 * Hilt
 * Retrofit
@@ -63,9 +64,8 @@ Place for business logic represented by `UseCase`-s.
 ## TODO
 * Add GitHub authorization
 * Split domain and data modules into `per-feature` modules
-* Test RemoteMediator - verify if paging works well
 * Write Repositories tests
 * Configure CI
 * Add some styling
 * Add more instrumented tests
-* Add GradleDependencyUpdate plugin or something similar
+* Configure GradleDependencyUpdate plugin
