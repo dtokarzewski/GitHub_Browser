@@ -18,7 +18,8 @@ import pl.dtokarzewski.github.domain.repo.GetRepoUseCase
 import pl.dtokarzewski.github.domain.repo.ValidateRepoNameUseCase
 
 class SearchViewModelTest {
-
+    // TODO rename tests to `GIVEN ... WHEN ... THEN ...`
+    // Change to assertValueHistoryDiff
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
@@ -266,6 +267,7 @@ class SearchViewModelTest {
         collectJob.cancel()
     }
 
+    // TODO move to RepoTestData file
     private val fakeRepos = listOf(
         Repo(
             id = 1296269,

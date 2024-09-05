@@ -24,6 +24,7 @@ import pl.dtokarzewski.github.core.ui.LocalSnackbarHostState
 import pl.dtokarzewski.github.feature.search.R
 import pl.dtokarzewski.githubbrowser.core.designsystem.Black40
 
+// TODO rename to SearchScreen - overloading constructor will work
 @Composable
 fun SearchRoute(
     viewModel: SearchViewModel = hiltViewModel(),

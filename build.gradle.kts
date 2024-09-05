@@ -2,7 +2,7 @@ import com.android.build.gradle.BaseExtension
 
 buildscript {
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0")
+        classpath(libs.kotlin.gradlePlugin)
         classpath(libs.graph.generator)
     }
 }
@@ -17,6 +17,7 @@ plugins {
     alias(libs.plugins.kotlin.kapt) apply false
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.graph.generator) apply true
+    alias(libs.plugins.compose.compiler) apply false
 }
 
 allprojects {

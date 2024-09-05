@@ -68,4 +68,8 @@ Place for business logic represented by `UseCase`-s.
 * Configure CI
 * Add some styling
 * Add more instrumented tests
+* Add screenshot tests
 * Configure GradleDependencyUpdate plugin
+* Try SideEffectMviViewModel
+* Replace `data-` and `feature-` frefixes with parent modules
+* Remove dependency 
