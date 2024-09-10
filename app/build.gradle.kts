@@ -40,10 +40,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":core-common"))
-    implementation(project(":core-ui"))
-    implementation(project(":feature-search"))
-    implementation(project(":feature-repo"))
+    implementation(project(":core:common"))
+    implementation(project(":core:ui"))
+    implementation(project(":feature:search"))
+    implementation(project(":feature:repo"))
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
@@ -63,8 +63,8 @@ dependencies {
     implementation(libs.timber)
 
     kaptAndroidTest(libs.hilt.compiler)
-    androidTestImplementation(project(":core-test"))
-    androidTestImplementation(project(":data-test"))
+    androidTestImplementation(project(":core:test"))
+    androidTestImplementation(project(":data:test"))
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test)
     debugImplementation(libs.androidx.compose.ui.testManifest)

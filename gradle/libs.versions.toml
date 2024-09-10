@@ -8,7 +8,7 @@ androidDesugarJdkLibs = "2.1.2"
 androidGradlePlugin = "8.6.0"
 androidxActivity = "1.9.2"
 androidxAppCompat = "1.7.0"
-androidxComposeBom = "2024.09.00"
+androidxComposeBom = "2024.09.01"
 androidxDynamicAnimation = "1.0.0"
 androidxCore = "1.13.1"
 androidxCoreSplashscreen = "1.0.1"
@@ -51,11 +51,13 @@ protobufPlugin = "0.9.4"
 retrofit = "2.9.0"
 retrofitKotlinxSerializationJson = "1.0.0"
 room = "2.6.1"
+screenshot = "0.0.1-alpha06"
 secrets = "2.0.1"
 spotless = "6.14.0"
 timber = "5.0.1"
 turbine = "1.1.0"
 graphGenerator = "0.8.0"
+junit = "1.2.1"
 
 [libraries]
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
@@ -70,7 +72,6 @@ androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", versi
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
-androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
 androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4"}
 androidx-compose-ui-testManifest = { group = "androidx.compose.ui", name = "ui-test-manifest"}
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
@@ -146,6 +147,7 @@ room-paging = { group = "androidx.room", name = "room-paging", version.ref = "ro
 
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -163,3 +165,4 @@ protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 graph-generator = { id = "com.vanniktech.dependency.graph.generator", version.ref = "graphGenerator" }
+screenshot = { id = "com.android.compose.screenshot", version.ref = "screenshot"}
