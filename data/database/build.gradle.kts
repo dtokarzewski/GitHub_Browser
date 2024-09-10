@@ -2,15 +2,15 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
 
 android {
-    namespace = "pl.dtokarzewski.github.data"
+    namespace = "pl.dtokarzewski.github.data.db"
 
     defaultConfig {
-        testInstrumentationRunner = "pl.dtokarzewski.github.core.test.GithubTestRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -26,23 +26,21 @@ android {
 }
 
 dependencies {
+
     implementation(project(":core:common"))
-    implementation(project(":data:database"))
-    implementation(project(":data:model"))
-    implementation(project(":data:network"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.paging.runtime)
     implementation(libs.kotlinx.coroutines.android)
-
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
-    kaptAndroidTest(libs.hilt.compiler)
-
-    implementation(libs.kotlinx.serialization.json)
+    ksp(libs.hilt.compiler)
     implementation(libs.kotlinx.datetime)
-    implementation(libs.retrofit.core)
-    implementation(libs.timber)
+    implementation(libs.kotlinx.serialization.json)
 
-    testImplementation(project(":core:test"))
+    api(libs.room.runtime)
+    api(libs.room.ktx)
+    api(libs.room.paging)
+    ksp(libs.room.compiler)
+
+    implementation(libs.timber)
 }

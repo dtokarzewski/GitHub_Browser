@@ -41,17 +41,17 @@ a small project, but it's goal was to make it as if it was big commercial projec
 It consists of following layers:
 
 #### Core
-All `core-` modules contains classes used across the app.
+All `core:` modules contains classes used across the app.
 
 #### Data layer
 Offline first source of data in the app - all data fetched from network is saved in database. UI and
 domain layers get data from database - never from network directly.
 
-* `data-network` module fetches data from GitHub sever
-* `data-database` module stores data in Room database
+* `data:network` module fetches data from GitHub sever
+* `data:database` module stores data in Room database
 * `data` module orchestrates fetching, storing and mapping data from previous two
-* `data-model` module stores data models used by business and ui layers. For proper layers separation 
-`data-network` and `data-database` modules have their own equivalent of those models.
+* `data:model` module stores data models used by business and ui layers. For proper layers separation 
+* `data:network` and `data:database` modules have their own equivalent of those models.
 
 #### Domain layer
 Place for business logic represented by `UseCase`-s.
@@ -59,13 +59,15 @@ Place for business logic represented by `UseCase`-s.
 #### UI layer
 * UI elements build using `Jetpack Compose`
 * `ViewModel`-s
-* Stored in `feature-xxx` modules
+* Stored in `feature:xxx` modules
 
 ## TODO
 * Add GitHub authorization
-* Split domain and data modules into `per-feature` modules
+* Consider splitting domain and data modules into `feature` modules
 * Write Repositories tests
 * Configure CI
 * Add some styling
 * Add more instrumented tests
+* Add screenshot tests
 * Configure GradleDependencyUpdate plugin
+* Try SideEffectMviViewModel - in separate branch

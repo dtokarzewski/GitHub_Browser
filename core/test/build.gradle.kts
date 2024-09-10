@@ -7,10 +7,10 @@ plugins {
 }
 
 android {
-    namespace = "pl.dtokarzewski.github.data"
+    namespace = "pl.dtokarzewski.github.core.test"
 
     defaultConfig {
-        testInstrumentationRunner = "pl.dtokarzewski.github.core.test.GithubTestRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -27,22 +27,21 @@ android {
 
 dependencies {
     implementation(project(":core:common"))
-    implementation(project(":data:database"))
-    implementation(project(":data:model"))
-    implementation(project(":data:network"))
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.paging.runtime)
-    implementation(libs.kotlinx.coroutines.android)
+    api(libs.junit4)
+    api(libs.androidx.test.core)
+    api(libs.kotlinx.coroutines.test)
+    api(libs.turbine)
+
+    api(libs.androidx.test.espresso.core)
+    api(libs.androidx.test.runner)
+    api(libs.androidx.test.rules)
+    api(libs.androidx.compose.ui.test)
+    api(libs.hilt.android.testing)
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     kaptAndroidTest(libs.hilt.compiler)
 
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.kotlinx.datetime)
-    implementation(libs.retrofit.core)
-    implementation(libs.timber)
-
-    testImplementation(project(":core:test"))
+    testImplementation(kotlin("test"))
+    androidTestImplementation(kotlin("test"))
 }
