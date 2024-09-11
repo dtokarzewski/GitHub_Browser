@@ -5,5 +5,5 @@
     <string name="repo_stars">Stars count: %s</string>
     <string name="commit_sha">Sha: %s</string>
     <string name="commit_date">Date: %s</string>
-    <string name="commit_message">Message: %s</string>
+    <string name="commit_message">Message:\n%s</string>
 </resources>

@@ -27,7 +27,11 @@ class CommitMediator(
         return try {
             val loadKey = when (loadType) {
                 LoadType.REFRESH -> 1
-                LoadType.PREPEND -> 1
+                LoadType.PREPEND -> {
+                    return MediatorResult.Success(
+                        endOfPaginationReached = true
+                    )
+                }
                 LoadType.APPEND -> {
                     state.lastItemOrNull()
                         ?: return MediatorResult.Success(

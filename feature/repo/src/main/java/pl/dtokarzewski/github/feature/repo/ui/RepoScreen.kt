@@ -1,5 +1,6 @@
 package pl.dtokarzewski.github.feature.repo.ui
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -145,7 +146,7 @@ fun RepoScreen(
 }
 
 @Composable
-@Preview()
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL)
 fun RepoScreenPreview() {
     GitHubTheme {
         RepoScreen(

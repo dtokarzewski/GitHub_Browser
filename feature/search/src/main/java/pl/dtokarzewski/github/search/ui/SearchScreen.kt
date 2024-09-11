@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -37,7 +38,6 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import pl.dtokarzewski.github.core.designsystem.Black40
 import pl.dtokarzewski.github.core.designsystem.GitHubTheme
 import pl.dtokarzewski.github.core.model.Repo
 import pl.dtokarzewski.github.core.model.testdata.allReposTestData
@@ -123,15 +123,21 @@ fun SearchScreen(
                 .padding(vertical = 16.dp),
             enabled = uiState.isQueryValid,
             onClick = onSearchClicked,
-
-            ) {
-            Text(text = stringResource(id = R.string.search))
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.onBackground,
+            ),
+        ) {
+            Text(
+                text = stringResource(id = R.string.search),
+                color = MaterialTheme.colorScheme.onPrimary,
+            )
         }
         Text(
             modifier = Modifier
                 .padding(vertical = 8.dp),
             text = stringResource(id = R.string.recent_repositories),
-            style = MaterialTheme.typography.titleMedium
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onBackground,
         )
         LazyColumn(
             modifier = Modifier.padding(top = 8.dp)
@@ -142,7 +148,8 @@ fun SearchScreen(
                         modifier = Modifier
                             .padding(vertical = 12.dp)
                             .clickable { onRepoClicked(it) },
-                        text = "${it.owner.login}/${it.name}"
+                        text = "${it.owner.login}/${it.name}",
+                        color = MaterialTheme.colorScheme.onBackground,
                     )
                 }
             }
@@ -153,6 +160,7 @@ fun SearchScreen(
         is SearchUiState.Loading -> {
             ProgressIndicator()
         }
+
         is SearchUiState.Error -> {
             ErrorSnackbar(
                 snackbarHostState = snackbarHostState,
@@ -160,7 +168,9 @@ fun SearchScreen(
                 onErrorShown = onErrorShown
             )
         }
-        else -> { /* No-op */ }
+
+        else -> { /* No-op */
+        }
     }
 }
 
@@ -169,7 +179,7 @@ fun ProgressIndicator() {
     Surface(
         modifier = Modifier
             .fillMaxSize(),
-        color = Black40
+        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
     ) {
         Box {
             CircularProgressIndicator(
@@ -187,7 +197,7 @@ fun ProgressIndicator() {
 fun SearchScreenPreview() {
     GitHubTheme {
         SearchScreen(
-            uiState = SearchUiState.Idle(
+            uiState = SearchUiState.Loading(
                 query = "dtokarzewski/GitHub",
                 isQueryValid = true,
                 allRepos = allReposTestData()
