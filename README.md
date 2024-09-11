@@ -7,7 +7,7 @@ playground for testing various architecture solutions and new libraries.
 
 Introduction
 -------------
-![Search Screen](docs\images\SearchScreenPreview.png) ![Repo Screen](docs\images\RepoScreenPreview.png)
+![Search Screen](docs/images/SearchScreenPreview.png) ![Repo Screen](docs/images/RepoScreenPreview.png)
 
 ### Functionality
 The app is very basic GitHub browser. It allows you to search for GitHub repos and see it's details
