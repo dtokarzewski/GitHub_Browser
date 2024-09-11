@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.hilt)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.screenshot)
 }
 
 android {
@@ -29,6 +30,9 @@ android {
             )
         }
     }
+
+    @Suppress("UnstableApiUsage")
+    experimentalProperties["android.experimental.enableScreenshotTest"] = true
 }
 
 dependencies {
@@ -52,4 +56,5 @@ dependencies {
 
     testImplementation(project(":data"))
     testImplementation(project(":core:test"))
+    screenshotTestImplementation(libs.androidx.compose.ui.tooling)
 }

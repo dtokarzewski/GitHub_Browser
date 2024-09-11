@@ -6,8 +6,8 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import pl.dtokarzewski.github.core.model.Repo
 import pl.dtokarzewski.github.core.network.commit.CommitDataSource
-import pl.dtokarzewski.github.data.commit.mapper.mapToCommit
-import pl.dtokarzewski.github.data.commit.mapper.mapToDbCommit
+import pl.dtokarzewski.github.data.commit.mapper.toDomainModel
+import pl.dtokarzewski.github.data.commit.mapper.toDbModel
 import pl.dtokarzewski.github.data.db.dao.CommitDao
 import pl.dtokarzewski.github.data.db.model.CommitDbModel
 import retrofit2.HttpException
@@ -39,7 +39,7 @@ class CommitMediator(
 
             val commits = commitDataSource.getCommits(repo.owner.login, repo.name, loadKey)
 
-            commitDao.insertAll(commits.map { it.mapToCommit().mapToDbCommit(repo.id) })
+            commitDao.insertAll(commits.map { it.toDomainModel().toDbModel(repo.id) })
 
             MediatorResult.Success(
                 endOfPaginationReached = commits.isEmpty()

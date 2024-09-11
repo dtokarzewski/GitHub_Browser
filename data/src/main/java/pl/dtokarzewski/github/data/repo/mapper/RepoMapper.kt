@@ -9,7 +9,7 @@ fun Repo.mapToRepoDbModel() = RepoDbModel(
         name = this.name,
         fullName = this.fullName,
         description = this.description,
-        owner = this.owner.mapToOwnerDbModel(),
+        owner = this.owner.toDbModel(),
         stars = this.stars
     )
 
@@ -18,7 +18,7 @@ fun RepoDbModel.mapToRepo() = Repo(
         name = this.name,
         fullName = this.fullName,
         description = this.description,
-        owner = this.owner.mapToOwner(),
+        owner = this.owner.toDomainModel(),
         stars = this.stars
     )
 
@@ -27,7 +27,7 @@ fun Repo.mapToRepoApiModel() = RepoApiModel(
         name = this.name,
         fullName = this.fullName,
         description = this.description,
-        owner = this.owner.mapToOwnerApiModel(),
+        owner = this.owner.toApiModel(),
         stars = this.stars
     )
 
@@ -36,6 +36,6 @@ fun RepoApiModel.mapToRepo() = Repo(
         name = this.name,
         fullName = this.fullName,
         description = this.description,
-        owner = this.owner.mapToOwner(),
+        owner = this.owner.toDomainModel(),
         stars = this.stars
     )

@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GitHub"
         android:resizeableActivity="true"
-        tools:targetApi="31">
+        android:networkSecurityConfig="@xml/network_security_config"
+        tools:targetApi="35">
         <activity
             android:name="pl.dtokarzewski.github.MainActivity"
             android:exported="true"

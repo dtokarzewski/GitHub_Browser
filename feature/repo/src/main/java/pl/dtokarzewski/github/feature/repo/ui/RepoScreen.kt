@@ -6,16 +6,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -28,11 +23,13 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import kotlinx.coroutines.flow.flowOf
+import pl.dtokarzewski.github.core.designsystem.GitHubTheme
+import pl.dtokarzewski.github.core.designsystem.component.GitHubAppBar
 import pl.dtokarzewski.github.core.model.Commit
-import pl.dtokarzewski.github.core.model.Owner
-import pl.dtokarzewski.github.core.model.Repo
+import pl.dtokarzewski.github.core.model.testdata.commitsTestData
+import pl.dtokarzewski.github.core.model.testdata.repoTestData
 import pl.dtokarzewski.github.feature.repo.R
-import pl.dtokarzewski.github.core.ui.R as CoreUiR
+import pl.dtokarzewski.github.core.ui.R as coreUiR
 
 @Composable
 fun RepoRoute(
@@ -42,11 +39,13 @@ fun RepoRoute(
     val uiState by viewModel.uiState.collectAsState()
     val commits = viewModel.commits.collectAsLazyPagingItems()
 
-    RepoScreen(
-        uiState = uiState,
-        commits = commits,
-        navigateUp = navigateUp
-    )
+    GitHubTheme {
+        RepoScreen(
+            uiState = uiState,
+            commits = commits,
+            navigateUp = navigateUp
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,18 +58,12 @@ fun RepoScreen(
     val repo = (uiState as? RepoUiState.Success)?.repo
     Scaffold(
         topBar = {
-            TopAppBar(
+            GitHubAppBar(
                 modifier = Modifier,
-                title = { Text(text = repo?.name ?: "") },
-                navigationIcon = {
-                    IconButton(onClick = navigateUp) {
-                        Icon(
-                            Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(id = CoreUiR.string.navigate_up)
-                        )
-                    }
-                },
-                colors = TopAppBarDefaults.mediumTopAppBarColors()
+                title =  repo?.name ?: "",
+                navigationIcon = Icons.AutoMirrored.Filled.ArrowBack,
+                navigationIconContentDescription = stringResource(coreUiR.string.navigate_up),
+                onNavigationClick = navigateUp,
             )
         },
     ) {
@@ -125,17 +118,11 @@ fun RepoScreen(
 @Composable
 @Preview(name = "RepoScreen", device = "id:pixel_5")
 fun RepoScreenPreview() {
-    val repo = Repo(
-        id = 1296269,
-        name = "Hello-World",
-        fullName = "octocat/Hello-World",
-        description =  "This your first repo!",
-        owner = Owner(login = "octocat", url = "https://api.github.com/users/octocat"),
-        stars = 80
-    )
-    RepoScreen(
-        uiState = RepoUiState.Success(repo),
-        commits = flowOf(PagingData.empty<Commit>()).collectAsLazyPagingItems(),
-        navigateUp = {}
-    )
+    GitHubTheme {
+        RepoScreen(
+            uiState = RepoUiState.Success(repoTestData()),
+            commits = flowOf(PagingData.from(commitsTestData())).collectAsLazyPagingItems(),
+            navigateUp = {}
+        )
+    }
 }
