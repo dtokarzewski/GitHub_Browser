@@ -4,22 +4,22 @@ import pl.dtokarzewski.github.core.model.Owner
 import pl.dtokarzewski.github.core.network.repo.model.OwnerApiModel
 import pl.dtokarzewski.github.data.db.model.OwnerDbModel
 
-fun Owner.mapToOwnerDbModel() = OwnerDbModel(
+fun Owner.toDbModel() = OwnerDbModel(
     login = this.login,
     url = this.url
 )
 
-fun OwnerDbModel.mapToOwner() = Owner(
+fun OwnerDbModel.toDomainModel() = Owner(
     login = this.login,
     url = this.url
 )
 
-fun Owner.mapToOwnerApiModel() = OwnerApiModel(
+fun Owner.toApiModel() = OwnerApiModel(
     login = this.login,
     url = this.url
 )
 
-fun OwnerApiModel.mapToOwner() = Owner(
+fun OwnerApiModel.toDomainModel() = Owner(
     login = this.login,
     url = this.url
 )

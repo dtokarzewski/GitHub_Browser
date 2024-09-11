@@ -8,8 +8,3 @@ data class Repo(
     val owner: Owner,
     val stars: Int
 )
-
-data class Owner(
-    val login: String,
-    val url: String?
-)

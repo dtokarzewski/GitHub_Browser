@@ -1,7 +1,7 @@
 package pl.dtokarzewski.github.domain.commit
 
 import androidx.paging.PagingData
-import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapMerge
 import pl.dtokarzewski.github.core.model.Commit
@@ -14,7 +14,7 @@ class GetCommitUseCase @Inject constructor(
     private val commitRepository: CommitRepository
 ) {
 
-    @OptIn(FlowPreview::class)
+    @OptIn(ExperimentalCoroutinesApi::class)
     operator fun invoke(owner: String, name: String): Flow<PagingData<Commit>> =
         repoRepository
             .getRepoAsFlow(owner, name)

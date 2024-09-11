@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.map
 import pl.dtokarzewski.github.core.model.Commit
 import pl.dtokarzewski.github.core.model.Repo
 import pl.dtokarzewski.github.core.network.commit.CommitDataSource
-import pl.dtokarzewski.github.data.commit.mapper.mapToCommit
+import pl.dtokarzewski.github.data.commit.mapper.toDomainModel
 import pl.dtokarzewski.github.data.db.dao.CommitDao
 import javax.inject.Inject
 
@@ -24,6 +24,6 @@ class CommitRepositoryImpl @Inject constructor(
             ),
             remoteMediator = CommitMediator(repo, commitDao, commitDataSource),
             pagingSourceFactory = { commitDao.getPagedCommits(repo.id) }
-        ).flow.map { it.map { dbCommit -> dbCommit.mapToCommit() } }
+        ).flow.map { it.map { dbCommit -> dbCommit.toDomainModel() } }
     }
 }

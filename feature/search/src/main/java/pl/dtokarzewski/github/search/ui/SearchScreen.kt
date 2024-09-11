@@ -1,12 +1,32 @@
 package pl.dtokarzewski.github.search.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -17,12 +37,13 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import pl.dtokarzewski.github.core.designsystem.Black40
 import pl.dtokarzewski.github.core.designsystem.GitHubTheme
 import pl.dtokarzewski.github.core.model.Repo
+import pl.dtokarzewski.github.core.model.testdata.allReposTestData
 import pl.dtokarzewski.github.core.ui.ErrorSnackbar
 import pl.dtokarzewski.github.core.ui.LocalSnackbarHostState
 import pl.dtokarzewski.github.feature.search.R
-import pl.dtokarzewski.githubbrowser.core.designsystem.Black40
 
 // TODO rename to SearchScreen - overloading constructor will work
 @Composable
@@ -46,15 +67,17 @@ fun SearchRoute(
             }
         }
     }
-    SearchScreen(
-        uiState = uiState,
-        onRepoNameChanged = viewModel::onQueryChanged,
-        onSearchClicked = viewModel::onSearchClicked,
-        onRepoClicked = viewModel::onRecentRepoClicked,
-        onErrorShown = viewModel::onErrorShown,
-        snackbarHostState = snackbarHostState
+    GitHubTheme {
+        SearchScreen(
+            uiState = uiState,
+            onRepoNameChanged = viewModel::onQueryChanged,
+            onSearchClicked = viewModel::onSearchClicked,
+            onRepoClicked = viewModel::onRecentRepoClicked,
+            onErrorShown = viewModel::onErrorShown,
+            snackbarHostState = snackbarHostState
 
-    )
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -73,7 +96,8 @@ fun SearchScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 12.dp)
+            .background(MaterialTheme.colorScheme.background)
+            .padding(horizontal = 12.dp, vertical = 16.dp)
     ) {
 
         OutlinedTextField(
@@ -96,7 +120,7 @@ fun SearchScreen(
             modifier = Modifier
                 .width(200.dp)
                 .align(CenterHorizontally)
-                .padding(vertical = 8.dp),
+                .padding(vertical = 16.dp),
             enabled = uiState.isQueryValid,
             onClick = onSearchClicked,
 
@@ -163,7 +187,11 @@ fun ProgressIndicator() {
 fun SearchScreenPreview() {
     GitHubTheme {
         SearchScreen(
-            uiState = SearchUiState.Idle(query = "dtokarzewski/GitHub", true, emptyList()),
+            uiState = SearchUiState.Idle(
+                query = "dtokarzewski/GitHub",
+                isQueryValid = true,
+                allRepos = allReposTestData()
+            ),
             onRepoNameChanged = {},
             onSearchClicked = {},
             onRepoClicked = {},

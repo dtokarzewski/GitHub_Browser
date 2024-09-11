@@ -3,10 +3,11 @@ GitHub Browser
 **work in progress**
 
 This project is sample offline-first, redux-style Android app. It's purpose is to be a
-playground for testing various solutions.
+playground for testing various architecture solutions and new libraries.
 
 Introduction
 -------------
+![Search Screen](docs/images/SearchScreenPreview.png) ![Repo Screen](docs/images/RepoScreenPreview.png)
 
 ### Functionality
 The app is very basic GitHub browser. It allows you to search for GitHub repos and see it's details
@@ -16,10 +17,12 @@ and commits list in details screen.
 No special operations needed - just run project in Android Studio.
 
 ### Testing
-Right now project has couple of basic instrumentation tests verifying app navigation with Jetpack Compose
-and UseCase unit tests for domain layer verification.
+* Unit tests - UseCase and ViewModel unit tests for domain layer verification.
+* Instrumentation tests - Right now project has couple of basic instrumentation tests verifying app navigation with Jetpack Compose
+* Screenshot tests - experimental Compose Screenshot library was used to perform screenshot tests.
 
-TODO: Add abstraction layer in UseCases for ViewModels isolation and write ViewModel tests
+TODO: Add abstraction layer in UseCases for ViewModels isolation. Providing fake UseCase allow to not relay on fake repos in ViewModels tests. 
+TODO: Add mappers unit tests
 
 ### Tech stack
 Project follows Google's architecture recommendations and uses Architecture Components. Here are main
@@ -67,7 +70,5 @@ Place for business logic represented by `UseCase`-s.
 * Write Repositories tests
 * Configure CI
 * Add some styling
-* Add more instrumented tests
-* Add screenshot tests
 * Configure GradleDependencyUpdate plugin
 * Try SideEffectMviViewModel - in separate branch
