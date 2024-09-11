@@ -1,5 +1,6 @@
 package pl.dtokarzewski.github.feature.repo.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,6 +17,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -71,42 +73,69 @@ fun RepoScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(it)
-                .padding(horizontal = 8.dp)
         ) {
-            Text(
-                modifier = Modifier.padding(vertical = 12.dp),
-                text = stringResource(id = R.string.repo_details),
-                style = MaterialTheme.typography.titleLarge
-            )
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.primaryContainer)
+                    .padding(horizontal = 8.dp)
+            ) {
+                Text(
+                    modifier = Modifier.padding(vertical = 12.dp),
+                    text = stringResource(id = R.string.repo_details),
+                    style = MaterialTheme.typography.titleLarge
+                )
 
-            Text(
-                modifier = Modifier.padding(vertical = 12.dp),
-                text = stringResource(
-                    R.string.repo_id,
-                    repo?.id ?: 0
-                ),
-                style = MaterialTheme.typography.bodyMedium
-            )
+                Text(
+                    modifier = Modifier.padding(vertical = 12.dp),
+                    text = stringResource(
+                        R.string.repo_id,
+                        repo?.id ?: 0
+                    ),
+                    style = MaterialTheme.typography.bodyMedium
+                )
 
-            Text(
-                modifier = Modifier.padding(vertical = 12.dp),
-                text = stringResource(
-                    R.string.repo_stars,
-                    repo?.stars ?: 0
-                ),
-                style = MaterialTheme.typography.bodyMedium
-            )
+                Text(
+                    modifier = Modifier.padding(vertical = 12.dp),
+                    text = stringResource(
+                        R.string.repo_stars,
+                        repo?.stars ?: 0
+                    ),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
 
-            HorizontalDivider(
-                modifier = Modifier.padding(vertical = 4.dp)
-            )
+            HorizontalDivider()
 
-            LazyColumn {
+            LazyColumn(
+                modifier = Modifier.padding(horizontal = 8.dp)
+            ) {
                 items(count = commits.itemCount) { index ->
-                    commits[index]?.let {
+                    commits[index]?.let { commit ->
                         Text(
                             modifier = Modifier.padding(vertical = 12.dp),
-                            text = "${it.sha.take(9)} : ${it.commit.author.date}\n${it.commit.message}"
+                            text = stringResource(
+                                id = R.string.commit_sha,
+                                commit.sha.take(9)
+                            ),
+                        )
+                        Text(
+                            modifier = Modifier.padding(vertical = 12.dp),
+                            text = stringResource(
+                                id = R.string.commit_date,
+                                commit.commit.author.date,
+                            ),
+                        )
+                        Text(
+                            modifier = Modifier.padding(vertical = 12.dp),
+                            text = stringResource(
+                                R.string.commit_message,
+                                commit.commit.message,
+                            ),
+                            fontWeight = FontWeight.W400,
+                        )
+                        HorizontalDivider(
+                            modifier = Modifier.padding(vertical = 4.dp)
                         )
                     }
                 }
@@ -116,7 +145,7 @@ fun RepoScreen(
 }
 
 @Composable
-@Preview(name = "RepoScreen", device = "id:pixel_5")
+@Preview(name = "RepoScreen", device = "id:pixel_5", apiLevel = 34)
 fun RepoScreenPreview() {
     GitHubTheme {
         RepoScreen(

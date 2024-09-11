@@ -3,4 +3,7 @@
     <string name="repo_details">Repository details</string>
     <string name="repo_id">Repository id: %s</string>
     <string name="repo_stars">Stars count: %s</string>
+    <string name="commit_sha">Sha: %s</string>
+    <string name="commit_date">Date: %s</string>
+    <string name="commit_message">Message: %s</string>
 </resources>

@@ -4,6 +4,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import pl.dtokarzewski.github.core.designsystem.GitHubTheme
+import pl.dtokarzewski.github.core.model.testdata.repoTestData
 
 class SearchScreenTest {
 
@@ -15,7 +16,8 @@ class SearchScreenTest {
                 uiState = SearchUiState.Idle(
                     query = "dtokarzewski/GitHub",
                     isQueryValid = true,
-                    allRepos = emptyList()),
+                    allRepos = listOf(repoTestData())
+                ),
                 onRepoNameChanged = {},
                 onSearchClicked = {},
                 onRepoClicked = {},

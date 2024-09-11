@@ -1,4 +1,4 @@
-package pl.dtokarzewski.githubbrowser.core.designsystem
+package pl.dtokarzewski.github.core.designsystem
 
 import androidx.compose.ui.graphics.Color
 

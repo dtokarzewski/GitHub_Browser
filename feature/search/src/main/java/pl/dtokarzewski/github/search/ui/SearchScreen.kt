@@ -1,7 +1,7 @@
 package pl.dtokarzewski.github.search.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -42,7 +42,7 @@ import pl.dtokarzewski.github.core.model.Repo
 import pl.dtokarzewski.github.core.ui.ErrorSnackbar
 import pl.dtokarzewski.github.core.ui.LocalSnackbarHostState
 import pl.dtokarzewski.github.feature.search.R
-import pl.dtokarzewski.githubbrowser.core.designsystem.Black40
+import pl.dtokarzewski.github.core.designsystem.Black40
 
 // TODO rename to SearchScreen - overloading constructor will work
 @Composable
@@ -95,6 +95,7 @@ fun SearchScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 12.dp, vertical = 16.dp)
     ) {
 
