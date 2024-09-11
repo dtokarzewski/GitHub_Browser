@@ -37,12 +37,13 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import pl.dtokarzewski.github.core.designsystem.Black40
 import pl.dtokarzewski.github.core.designsystem.GitHubTheme
 import pl.dtokarzewski.github.core.model.Repo
+import pl.dtokarzewski.github.core.model.testdata.allReposTestData
 import pl.dtokarzewski.github.core.ui.ErrorSnackbar
 import pl.dtokarzewski.github.core.ui.LocalSnackbarHostState
 import pl.dtokarzewski.github.feature.search.R
-import pl.dtokarzewski.github.core.designsystem.Black40
 
 // TODO rename to SearchScreen - overloading constructor will work
 @Composable
@@ -189,7 +190,7 @@ fun SearchScreenPreview() {
             uiState = SearchUiState.Idle(
                 query = "dtokarzewski/GitHub",
                 isQueryValid = true,
-                allRepos = emptyList()
+                allRepos = allReposTestData()
             ),
             onRepoNameChanged = {},
             onSearchClicked = {},

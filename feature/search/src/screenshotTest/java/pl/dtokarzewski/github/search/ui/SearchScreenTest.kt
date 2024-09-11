@@ -26,4 +26,42 @@ class SearchScreenTest {
             )
         }
     }
+
+    @Preview()
+    @Composable
+    fun SearchScreenInvalidStateQueryPreview() {
+        GitHubTheme {
+            SearchScreen(
+                uiState = SearchUiState.Idle(
+                    query = "",
+                    isQueryValid = false,
+                    allRepos = listOf(repoTestData())
+                ),
+                onRepoNameChanged = {},
+                onSearchClicked = {},
+                onRepoClicked = {},
+                onErrorShown = {},
+                snackbarHostState = SnackbarHostState()
+            )
+        }
+    }
+
+    @Preview()
+    @Composable
+    fun SearchScreenLoadingStatePreview() {
+        GitHubTheme {
+            SearchScreen(
+                uiState = SearchUiState.Loading(
+                    query = "dtokarzewski/GitHub",
+                    isQueryValid = true,
+                    allRepos = listOf(repoTestData())
+                ),
+                onRepoNameChanged = {},
+                onSearchClicked = {},
+                onRepoClicked = {},
+                onErrorShown = {},
+                snackbarHostState = SnackbarHostState()
+            )
+        }
+    }
 }

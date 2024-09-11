@@ -10,3 +10,7 @@ fun repoTestData() = Repo(
     owner = ownerTestData(),
     stars = 0,
 )
+
+fun allReposTestData() = listOf(
+    repoTestData(),
+)
