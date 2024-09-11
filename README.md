@@ -3,10 +3,11 @@ GitHub Browser
 **work in progress**
 
 This project is sample offline-first, redux-style Android app. It's purpose is to be a
-playground for testing various solutions.
+playground for testing various architecture solutions and new libraries.
 
 Introduction
 -------------
+![Search Screen](docs\images\SearchScreenPreview.png) ![Repo Screen](docs\images\RepoScreenPreview.png)
 
 ### Functionality
 The app is very basic GitHub browser. It allows you to search for GitHub repos and see it's details
@@ -68,6 +69,5 @@ Place for business logic represented by `UseCase`-s.
 * Configure CI
 * Add some styling
 * Add more instrumented tests
-* Add screenshot tests
 * Configure GradleDependencyUpdate plugin
 * Try SideEffectMviViewModel - in separate branch
