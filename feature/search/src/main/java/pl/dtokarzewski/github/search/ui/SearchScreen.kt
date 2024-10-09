@@ -15,7 +15,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SnackbarHostState
@@ -45,9 +44,8 @@ import pl.dtokarzewski.github.core.ui.ErrorSnackbar
 import pl.dtokarzewski.github.core.ui.LocalSnackbarHostState
 import pl.dtokarzewski.github.feature.search.R
 
-// TODO rename to SearchScreen - overloading constructor will work
 @Composable
-fun SearchRoute(
+fun SearchScreen(
     viewModel: SearchViewModel = hiltViewModel(),
     navigateToRepo: (String, String) -> Unit
 ) {
@@ -80,7 +78,6 @@ fun SearchRoute(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
     uiState: SearchUiState,

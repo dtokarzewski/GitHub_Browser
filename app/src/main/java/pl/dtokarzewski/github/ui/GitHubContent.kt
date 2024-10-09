@@ -12,7 +12,6 @@ import pl.dtokarzewski.github.core.designsystem.GitHubTheme
 import pl.dtokarzewski.github.core.ui.LocalSnackbarHostState
 import pl.dtokarzewski.github.navigation.GitHubNavHost
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GitHubContent(
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() }

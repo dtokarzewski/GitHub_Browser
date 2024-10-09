@@ -70,5 +70,4 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.testManifest)
     androidTestImplementation(libs.androidx.navigation.testing)
     androidTestImplementation(kotlin("test"))
-
 }

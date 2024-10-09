@@ -4,7 +4,7 @@ import pl.dtokarzewski.github.core.model.Repo
 
 sealed class RepoUiState {
 
-    object Loading : RepoUiState()
+    data object Loading : RepoUiState()
 
     data class Success(
         val repo: Repo

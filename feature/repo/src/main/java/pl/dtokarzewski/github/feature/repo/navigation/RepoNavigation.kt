@@ -3,7 +3,7 @@ package pl.dtokarzewski.github.feature.repo.navigation
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.*
 import androidx.navigation.compose.composable
-import pl.dtokarzewski.github.feature.repo.ui.RepoRoute
+import pl.dtokarzewski.github.feature.repo.ui.RepoScreen
 
 const val REPO_ROUTE = "repo"
 const val ARG_OWNER = "owner"
@@ -22,7 +22,7 @@ fun NavGraphBuilder.repoGraph(
             navArgument(ARG_REPO_NAME) { type = NavType.StringType }
         )
     ) {
-        RepoRoute(
+        RepoScreen(
             navigateUp = { navController.popBackStack() }
         )
     }

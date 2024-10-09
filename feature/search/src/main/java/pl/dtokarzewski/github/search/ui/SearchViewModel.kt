@@ -96,8 +96,8 @@ class SearchViewModel @Inject constructor(
     }
 
     internal sealed interface QueryState {
-        object Idle : QueryState
-        object Loading : QueryState
+        data object Idle : QueryState
+        data object Loading : QueryState
         data class Error(val error: Throwable) : QueryState
         data class Success(val repo: Repo) : QueryState
     }

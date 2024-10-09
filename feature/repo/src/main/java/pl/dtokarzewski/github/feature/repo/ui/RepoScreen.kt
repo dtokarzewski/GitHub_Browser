@@ -35,7 +35,7 @@ import pl.dtokarzewski.github.feature.repo.R
 import pl.dtokarzewski.github.core.ui.R as coreUiR
 
 @Composable
-fun RepoRoute(
+fun RepoScreen(
     viewModel: RepoViewModel = hiltViewModel(),
     navigateUp: () -> Unit
 ) {
